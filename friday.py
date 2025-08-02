@@ -18,9 +18,15 @@ from tkinter import *
 recognizer = sr.Recognizer()
 
 # Set up text-to-speech engine
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)  # Set the desired voice
+try:
+    engine = pyttsx3.init()
+    voices = engine.getProperty('voices')
+    if voices:
+        engine.setProperty('voice', voices[0].id)  # Set the desired voice
+    print("Text-to-speech engine initialized successfully")
+except Exception as e:
+    print(f"Error initializing text-to-speech: {e}")
+    engine = None
 
 # Set up flag variables
 google_opened = False
@@ -32,8 +38,11 @@ user_phone_number = ""
 
 
 def talk(text):
-    engine.say(text)
-    engine.runAndWait()
+    try:
+        engine.say(text)
+        engine.runAndWait()
+    except Exception as e:
+        print(f"Error in text-to-speech: {e}")
 
 
 def input_instruction():
@@ -104,18 +113,26 @@ def play_friday():
             talk('I am Friday, how can I help you?')
             
         elif 'who is' in instruction:
-            instruction = instruction.replace('who is', " ")
-            results = wikipedia.summary(instruction, sentences=2)
-            talk("According to Wikipedia")
-            print(results)
-            talk(results)
+            try:
+                query = instruction.replace('who is', "").strip()
+                results = wikipedia.summary(query, sentences=2)
+                talk("According to Wikipedia")
+                print(results)
+                talk(results)
+            except Exception as e:
+                print(f"Wikipedia error: {e}")
+                talk("Sorry, I couldn't find information about that.")
             
         elif 'what is' in instruction:
-            instruction = instruction.replace('what is', " ")
-            results = wikipedia.summary(instruction, sentences=2)
-            talk("According to Wikipedia")
-            print(results)
-            talk(results)
+            try:
+                query = instruction.replace('what is', "").strip()
+                results = wikipedia.summary(query, sentences=2)
+                talk("According to Wikipedia")
+                print(results)
+                talk(results)
+            except Exception as e:
+                print(f"Wikipedia error: {e}")
+                talk("Sorry, I couldn't find information about that.")
             
         elif 'open camera' in instruction:
             talk('Okay')
@@ -127,26 +144,38 @@ def play_friday():
         elif 'open google' in instruction and not google_opened:
             talk("Opening Google...")
             url = "https://www.google.com"
-            webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-            webbrowser.get('chrome').open_new_tab(url)
-            google_opened = True
+            try:
+                webbrowser.open(url)
+                google_opened = True
+            except Exception as e:
+                print(f"Error opening Google: {e}")
+                talk("Sorry, I couldn't open Google.")
             
         elif 'close google' in instruction and google_opened:
-            pyautogui.hotkey('ctrl', 'w')
-            google_opened = False
-            talk("Closing Google tab.")
+            try:
+                pyautogui.hotkey('ctrl', 'w')
+                google_opened = False
+                talk("Closing Google tab.")
+            except Exception as e:
+                print(f"Error closing Google: {e}")
             
         elif 'open youtube' in instruction and not youtube_opened:
             talk("Opening YouTube...")
             url = "https://www.youtube.com/"
-            webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-            webbrowser.get('chrome').open_new_tab(url)
-            youtube_opened = True
+            try:
+                webbrowser.open(url)
+                youtube_opened = True
+            except Exception as e:
+                print(f"Error opening YouTube: {e}")
+                talk("Sorry, I couldn't open YouTube.")
             
         elif 'close youtube' in instruction and youtube_opened:
-            pyautogui.hotkey('ctrl', 'w')
-            youtube_opened = False
-            talk("Closing YouTube tab.")
+            try:
+                pyautogui.hotkey('ctrl', 'w')
+                youtube_opened = False
+                talk("Closing YouTube tab.")
+            except Exception as e:
+                print(f"Error closing YouTube: {e}")
             
         elif 'open cutting tools' in instruction:
             talk("Opening snip application...")
@@ -163,11 +192,20 @@ def play_friday():
             talk(summary)
             
         elif 'send whatsapp message' in instruction:
-            get_user_phone_number()
-            talk("What message do you want to send?")
-            message = input_instruction()
-            
-            send_whatsapp_message(user_phone_number, message)
+            try:
+                get_user_phone_number()
+                if user_phone_number:
+                    talk("What message do you want to send?")
+                    message = input_instruction()
+                    if message:
+                        send_whatsapp_message(user_phone_number, message)
+                    else:
+                        talk("No message received.")
+                else:
+                    talk("Please enter a phone number first.")
+            except Exception as e:
+                print(f"WhatsApp error: {e}")
+                talk("Sorry, I couldn't send the WhatsApp message.")
 
             
         elif 'close program' in instruction:
@@ -190,7 +228,7 @@ def start_program():
 root = tk.Tk()
 root.geometry("550x300")
 root.title("Virtual Assistant Friday")
-Label = tk.Label(root, text="Virtual Assistant Friday", font=("Times new romain", 25), fg="black", bg="pink")
+Label = tk.Label(root, text="Virtual Assistant Friday", font=("Times New Roman", 25), fg="black", bg="pink")
 Label.pack()
 root.configure(background="cyan")
 
