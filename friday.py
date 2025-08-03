@@ -67,15 +67,120 @@ def input_instruction():
 
 
 def send_whatsapp_message(phone_number, message):
-    pywhatkit.sendwhatmsg_instantly(f"+{phone_number}", message)
-    print("Message sent")
-    talk("Message sent")
+    try:
+        # Ensure phone number format is correct (with + prefix for pywhatkit)
+        if not phone_number.startswith('+'):
+            phone_number = '+' + phone_number
+        
+        # First, open WhatsApp Web to ensure it's ready
+        talk("Opening WhatsApp Web. Please make sure you're logged in.")
+        webbrowser.open("https://web.whatsapp.com")
+        time.sleep(3)  # Give time for page to load
+        
+        talk("Sending your message. Please wait.")
+        update_status_text("Sending WhatsApp message...")
+        print(f"Sending message to: {phone_number}")
+        print(f"Message: {message}")
+        
+        # Use scheduled message instead of instant (more reliable)
+        now = datetime.datetime.now()
+        hour = now.hour
+        minute = now.minute + 1  # Send 1 minute from now
+        
+        # Handle minute overflow
+        if minute >= 60:
+            minute = minute - 60
+            hour = hour + 1
+        
+        # Handle hour overflow (24-hour format)
+        if hour >= 24:
+            hour = 0
+        
+        talk(f"Scheduling message to send at {hour}:{minute:02d}. Please keep WhatsApp Web open.")
+        
+        # Send scheduled message
+        pywhatkit.sendwhatmsg(phone_number, message, hour, minute)
+        print("Message scheduled successfully")
+        talk("Message has been scheduled and will be sent automatically.")
+        
+    except Exception as e:
+        print(f"Error sending WhatsApp message: {str(e)}")
+        talk("Sorry, there was an error sending the message.")
+        
+        # Try alternative approach with sendwhatmsg_instantly as backup
+        try:
+            talk("Trying instant send method...")
+            update_status_text("Trying instant send...")
+            
+            # Give more time for WhatsApp Web to be ready
+            talk("Please make sure WhatsApp Web is open and logged in. Sending in 10 seconds.")
+            time.sleep(10)
+            
+            pywhatkit.sendwhatmsg_instantly(phone_number, message, 15, True)
+            print("Message sent via instant method")
+            talk("Message sent successfully via instant method")
+            
+        except Exception as e2:
+            print(f"Both methods failed: {str(e2)}")
+            talk("Both sending methods failed. Please check your WhatsApp Web connection and make sure you're logged in.")
 
 
 def get_user_phone_number():
     global user_phone_number
-    phone_number = phone_entry.get()
-    user_phone_number = phone_number.strip()
+    phone_number = phone_entry.get().strip()
+    
+    # Validate phone number format
+    if not phone_number:
+        talk("Please enter a phone number.")
+        return False
+        
+    # Remove any spaces or special characters except + and digits
+    cleaned_number = ''.join(char for char in phone_number if char.isdigit() or char == '+')
+    
+    # Ensure it starts with + (add if missing)
+    if not cleaned_number.startswith('+'):
+        # Assume it's missing the country code prefix
+        if len(cleaned_number) == 10:  # US number without country code
+            cleaned_number = '+1' + cleaned_number
+        else:
+            cleaned_number = '+' + cleaned_number
+    
+    if len(cleaned_number) < 12:  # Minimum: +XX XXXXXXXXX
+        talk("Please enter a valid phone number with country code. Example: +1234567890")
+        return False
+        
+    user_phone_number = cleaned_number
+    print(f"Phone number set to: {user_phone_number}")
+    return True
+
+
+def get_user_message():
+    talk("What message do you want to send? Please speak your message now.")
+    update_status_text("Speak your message...")
+    
+    try:
+        with sr.Microphone() as source:
+            print("Listening for message...")
+            recognizer.adjust_for_ambient_noise(source, duration=0.5)
+            audio = recognizer.listen(source, timeout=10)  # 10 second timeout
+            try:
+                message = recognizer.recognize_google(audio)
+                message = message.strip()
+                print(f"Message received: {message}")
+                update_status_text(f"Message: {message}")
+                return message
+            except sr.UnknownValueError:
+                talk("I didn't hear a message clearly. Please try again.")
+                update_status_text("Message not understood")
+                return None
+    except sr.RequestError as e:
+        print(f"Error occurred during speech recognition: {str(e)}")
+        talk("Sorry, there was an error with speech recognition.")
+        return None
+    except sr.WaitTimeoutError:
+        talk("I didn't hear anything. Please try again.")
+        update_status_text("No message heard")
+        return None
 
 
 def update_status_text(text):
@@ -87,6 +192,7 @@ def play_friday():
     if instruction == '':
         print("Invalid command")
         talk('Invalid command. Say "Friday" first.')
+        update_status_text("Listening...")
     else:
         print(instruction)
         global google_opened, youtube_opened, play_opened
@@ -193,24 +299,32 @@ def play_friday():
             
         elif 'send whatsapp message' in instruction:
             try:
-                get_user_phone_number()
-                if user_phone_number:
-                    talk("What message do you want to send?")
-                    message = input_instruction()
+                if get_user_phone_number():
+                    # Get the message via dedicated voice input
+                    message = get_user_message()
                     if message:
+                        print(f"Sending WhatsApp message: '{message}' to {user_phone_number}")
                         send_whatsapp_message(user_phone_number, message)
+                        talk("Message sent. Ready for next command.")
+                        update_status_text("Ready for commands")
                     else:
-                        talk("No message received.")
+                        talk("No message received. Ready for next command.")
+                        update_status_text("Ready for commands")
                 else:
-                    talk("Please enter a phone number first.")
+                    talk("Please enter a valid phone number first.")
             except Exception as e:
                 print(f"WhatsApp error: {e}")
-                talk("Sorry, I couldn't send the WhatsApp message.")
+                talk("Sorry, I couldn't send the WhatsApp message. Make sure WhatsApp Web is logged in.")
+                update_status_text("WhatsApp error - Ready for commands")
 
             
         elif 'close program' in instruction:
             talk("Closing Friday program...")
             quit()
+        
+        # Reset status to listening after each command (except WhatsApp which handles its own status)
+        if 'send whatsapp message' not in instruction:
+            update_status_text("Listening...")
 
 
 def run_program():
@@ -226,7 +340,7 @@ def start_program():
 
 
 root = tk.Tk()
-root.geometry("550x300")
+root.geometry("600x300")
 root.title("Virtual Assistant Friday")
 Label = tk.Label(root, text="Virtual Assistant Friday", font=("Times New Roman", 25), fg="black", bg="pink")
 Label.pack()
@@ -247,6 +361,11 @@ phone_label.pack(side="left")
 
 phone_entry = tk.Entry(phone_frame, font=("Times New Roman", 14))
 phone_entry.pack(side="left")
+
+# Add instruction label
+instruction_label = tk.Label(root, text="Instructions: 1. Enter phone number 2. Say 'Friday send whatsapp message' 3. Speak your message when prompted", 
+                           font=("Times New Roman", 10), bg="cyan", fg="darkblue", wraplength=600)
+instruction_label.pack(pady=20)
 
 
 root.mainloop()
