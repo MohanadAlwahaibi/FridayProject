@@ -13,78 +13,209 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Enhanced background animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: backgroundShift 10s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
+        /* Enhanced header with developer info */
         header {
             text-align: center;
             padding: 2rem 0;
             animation: fadeInDown 1s ease-out;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: headerRotate 8s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes headerRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .logo {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f093fb, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1rem;
-            animation: glow 2s ease-in-out infinite alternate;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes logoGlow {
+            from {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+                transform: scale(1);
+            }
+            to {
+                filter: drop-shadow(0 0 30px rgba(240, 147, 251, 0.8));
+                transform: scale(1.05);
+            }
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: #f0f0f0;
-            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #f0f0f0, #ffffff, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeIn 1s ease-out 0.5s forwards;
+            font-weight: 600;
+        }
+
+        .developer-credit {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            margin: 1.5rem auto;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 1s ease-out 0.8s both;
+        }
+
+        .developer-name {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .developer-title {
+            color: #f093fb;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .main-dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 2.5rem;
             margin-top: 2rem;
         }
 
-        .chat-interface {
+        .chat-interface, .control-panel {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
             padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-interface::before, .control-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s;
+        }
+
+        .chat-interface:hover::before, .control-panel:hover::before {
+            left: 100%;
+        }
+
+        .chat-interface {
             animation: slideUp 1s ease-out 1s both;
-            height: 500px;
+            height: 550px;
             display: flex;
             flex-direction: column;
         }
 
-        .chat-header {
-            text-align: center;
-            margin-bottom: 1rem;
+        .control-panel {
+            animation: slideUp 1s ease-out 1.2s both;
         }
 
-        .chat-title {
+        .chat-header, .control-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chat-title, .control-title {
             color: #fff;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .status-indicator {
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
-            background: #4CAF50;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
             margin-left: 10px;
-            animation: pulse 2s infinite;
+            animation: statusPulse 2s infinite;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { 
+                opacity: 0.7; 
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2);
+                box-shadow: 0 0 20px rgba(76, 175, 80, 1);
+            }
         }
 
         .chat-messages {
@@ -183,56 +314,88 @@
 
         .control-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.6rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
             margin-bottom: 2rem;
         }
 
         .control-btn {
-            padding: 0.8rem 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            padding: 1.2rem 1rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             color: white;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.6rem;
+            position: relative;
+            overflow: hidden;
+            font-weight: 600;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240, 147, 251, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
         }
 
         .control-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, rgba(240, 147, 251, 0.3), rgba(255, 255, 255, 0.2));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(240, 147, 251, 0.4);
+            border-color: rgba(240, 147, 251, 0.6);
         }
 
         .control-btn.active {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(145deg, #4CAF50, #45a049);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(76, 175, 80, 0.6);
+            border-color: #4CAF50;
         }
 
         .control-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
-        .whatsapp-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+        .whatsapp-section, .advanced-tools, .linkedin-section, .git-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-section:hover, .advanced-tools:hover, .linkedin-section:hover, .git-section:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .whatsapp-title {
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 1rem;
             text-align: center;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .phone-input {
@@ -255,42 +418,45 @@
         .whatsapp-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(45deg, #25D366, #128C7E);
+            background: linear-gradient(145deg, #25D366, #128C7E);
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
         }
 
         .features-showcase {
-            margin-top: 3rem;
+            margin-top: 4rem;
             animation: slideUp 1s ease-out 1.5s both;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 25px;
+            padding: 2rem;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(20px);
         }
 
         .feature-card::before {
@@ -300,8 +466,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(240, 147, 251, 0.2), transparent);
+            transition: left 0.6s;
         }
 
         .feature-card:hover::before {
@@ -309,30 +475,118 @@
         }
 
         .feature-card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, rgba(240, 147, 251, 0.2), rgba(255, 255, 255, 0.15));
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(240, 147, 251, 0.3);
+            border-color: rgba(240, 147, 251, 0.6);
         }
 
         .feature-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            animation: bounce 2s infinite;
+            animation: iconFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .feature-title {
             color: #fff;
             font-weight: bold;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .feature-description {
-            color: #d0d0d0;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
+        /* Enhanced footer with developer info */
+        .developer-footer {
+            margin-top: 4rem;
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 1s ease-out 2s both;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-subtitle {
+            color: #f093fb;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(240, 147, 251, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .footer-link:hover {
+            background: rgba(240, 147, 251, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+        }
+
+        /* Enhanced floating shapes */
         .floating-shapes {
             position: fixed;
             top: 0;
@@ -345,33 +599,65 @@
 
         .shape {
             position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
+            opacity: 0.15;
+            animation: complexFloat 12s ease-in-out infinite;
         }
 
         .shape:nth-child(1) {
-            top: 20%;
+            top: 10%;
             left: 10%;
             animation-delay: 0s;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef) !important;
         }
 
         .shape:nth-child(2) {
             top: 60%;
             right: 10%;
-            animation-delay: 2s;
+            animation-delay: 4s;
+            background: linear-gradient(45deg, #a8edea, #fed6e3) !important;
         }
 
         .shape:nth-child(3) {
             top: 80%;
             left: 20%;
-            animation-delay: 4s;
+            animation-delay: 8s;
+            background: linear-gradient(45deg, #ffecd2, #fcb69f) !important;
         }
 
-        /* Animations */
+        .shape:nth-child(4) {
+            top: 30%;
+            right: 30%;
+            animation-delay: 2s;
+            background: linear-gradient(45deg, #f093fb, #f5576c) !important;
+        }
+
+        .shape:nth-child(5) {
+            top: 50%;
+            left: 50%;
+            animation-delay: 6s;
+            background: linear-gradient(45deg, #4facfe, #00f2fe) !important;
+        }
+
+        @keyframes complexFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-30px) rotate(90deg) scale(1.1);
+            }
+            50% {
+                transform: translateY(20px) rotate(180deg) scale(0.9);
+            }
+            75% {
+                transform: translateY(-10px) rotate(270deg) scale(1.05);
+            }
+        }
+
+        /* Enhanced animations */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-80px);
             }
             to {
                 opacity: 1;
@@ -387,7 +673,7 @@
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(80px);
             }
             to {
                 opacity: 1;
@@ -446,17 +732,32 @@
             }
 
             .logo {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
 
             .features-grid {
                 grid-template-columns: 1fr;
             }
 
+            .control-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tech-stack {
+                gap: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
             .control-grid {
                 grid-template-columns: 1fr;
             }
@@ -465,15 +766,21 @@
 </head>
 <body>
     <div class="floating-shapes">
-        <div class="shape" style="width: 80px; height: 80px; background: linear-gradient(45deg, #ff9a9e, #fecfef); border-radius: 50%;"></div>
-        <div class="shape" style="width: 120px; height: 120px; background: linear-gradient(45deg, #a8edea, #fed6e3); border-radius: 20px;"></div>
-        <div class="shape" style="width: 60px; height: 60px; background: linear-gradient(45deg, #ffecd2, #fcb69f); border-radius: 50%;"></div>
+        <div class="shape" style="width: 100px; height: 100px; border-radius: 50%;"></div>
+        <div class="shape" style="width: 150px; height: 150px; border-radius: 30px;"></div>
+        <div class="shape" style="width: 80px; height: 80px; border-radius: 50%;"></div>
+        <div class="shape" style="width: 120px; height: 120px; border-radius: 25px;"></div>
+        <div class="shape" style="width: 90px; height: 90px; border-radius: 50%;"></div>
     </div>
 
     <div class="container">
         <header>
             <div class="logo">🤖 FRIDAY</div>
             <div class="subtitle">Your Intelligent Virtual Assistant</div>
+            <div class="developer-credit">
+                <div class="developer-name">👨‍💻 Developed by Almuhannad</div>
+                <div class="developer-title">Full Stack Developer & AI Enthusiast</div>
+            </div>
         </header>
 
         <div class="main-dashboard">
@@ -644,6 +951,33 @@
                     <div class="feature-description">
                         Your data stays private. Local processing ensures your conversations remain confidential.
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="developer-footer">
+            <div class="footer-content">
+                <div class="footer-title">🚀 Built with Passion</div>
+                <div class="footer-subtitle">Crafted by Almuhannad - Innovative Solutions Developer</div>
+                
+                <div class="tech-stack">
+                    <div class="tech-item">🌐 HTML5</div>
+                    <div class="tech-item">🎨 CSS3</div>
+                    <div class="tech-item">⚡ JavaScript</div>
+                    <div class="tech-item">🤖 AI Integration</div>
+                    <div class="tech-item">🎤 Speech API</div>
+                    <div class="tech-item">📱 Responsive Design</div>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">🌟 Portfolio</a>
+                    <a href="#" class="footer-link">💼 LinkedIn</a>
+                    <a href="#" class="footer-link">📧 Contact</a>
+                    <a href="#" class="footer-link">💻 GitHub</a>
+                </div>
+                
+                <div style="margin-top: 2rem; color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                    © 2024 Friday AI Assistant. Designed & Developed with ❤️ by Almuhannad
                 </div>
             </div>
         </div>
@@ -1156,6 +1490,188 @@
             dirInput.click();
         }
 
+        // Enhanced Git automation functionality
+        function executeSmartGitCommands() {
+            const message = document.getElementById('commitMessage').value.trim();
+            if (!message) {
+                addMessage("Friday: Please enter a commit message first.", 'friday');
+                return;
+            }
+
+            if (!selectedProjectPath) {
+                addMessage("Friday: Please select a project directory first using the 'Select Folder' button.", 'friday');
+                return;
+            }
+
+            addMessage("Friday: Executing comprehensive Git workflow with smart file management...", 'friday');
+            
+            // Enhanced git commands with better error handling and status checking
+            const gitCommands = [
+                `cd "${selectedProjectPath}"`,
+                '# Check if we are in a git repository',
+                'git status || (echo "Not a git repository. Initializing..." && git init)',
+                '# Show current status',
+                'echo "=== Current Git Status ===" && git status --porcelain',
+                '# Add gitignore patterns if they don\'t exist',
+                'echo "node_modules/" >> .gitignore 2>/dev/null || true',
+                'echo "__pycache__/" >> .gitignore 2>/dev/null || true',
+                'echo ".DS_Store" >> .gitignore 2>/dev/null || true',
+                'echo "*.log" >> .gitignore 2>/dev/null || true',
+                'echo ".env" >> .gitignore 2>/dev/null || true',
+                'echo "dist/" >> .gitignore 2>/dev/null || true',
+                'echo "build/" >> .gitignore 2>/dev/null || true',
+                '# Add all files (respecting .gitignore)',
+                'git add . && echo "✅ Files staged successfully"',
+                '# Add .gitignore itself if it was created',
+                'git add .gitignore 2>/dev/null || true',
+                '# Show what will be committed',
+                'echo "=== Files to be committed ===" && git diff --cached --name-only',
+                '# Commit with the provided message',
+                `git commit -m "${message}" && echo "✅ Commit created successfully"`,
+                '# Check if remote exists, if not, prompt user',
+                'git remote -v || echo "⚠️ No remote repository configured. Please set up remote first: git remote add origin <url>"',
+                '# Push to remote (this might fail if no remote is set)',
+                'git push && echo "✅ Push completed successfully" || echo "❌ Push failed - check remote configuration"'
+            ];
+
+            // Enhanced PowerShell commands for Windows
+            const windowsCommands = [
+                `Set-Location "${selectedProjectPath}"`,
+                '# Check if we are in a git repository',
+                'try { git status } catch { Write-Host "Not a git repository. Initializing..." ; git init }',
+                '# Show current status',
+                'Write-Host "=== Current Git Status ===" ; git status --porcelain',
+                '# Create or update .gitignore',
+                'if (!(Test-Path .gitignore)) { New-Item .gitignore -ItemType File -Force }',
+                'Add-Content .gitignore "node_modules/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "__pycache__/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore ".DS_Store" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "*.log" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore ".env" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "dist/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "build/" -ErrorAction SilentlyContinue',
+                '# Add all files (respecting .gitignore)',
+                'git add . ; if ($?) { Write-Host "✅ Files staged successfully" }',
+                '# Add .gitignore itself',
+                'git add .gitignore',
+                '# Show what will be committed',
+                'Write-Host "=== Files to be committed ===" ; git diff --cached --name-only',
+                '# Commit with the provided message',
+                `git commit -m "${message}" ; if ($?) { Write-Host "✅ Commit created successfully" }`,
+                '# Check remote configuration',
+                'try { git remote -v } catch { Write-Host "⚠️ No remote repository configured. Please set up remote first: git remote add origin <url>" }',
+                '# Attempt to push',
+                'try { git push ; Write-Host "✅ Push completed successfully" } catch { Write-Host "❌ Push failed - check remote configuration or run: git push --set-upstream origin main" }'
+            ];
+
+            // Show the commands that will be executed
+            addMessage(`Friday: Comprehensive Git workflow for: ${selectedProjectPath}`, 'friday');
+            
+            // Detect OS and provide appropriate commands
+            const isWindows = navigator.userAgent.includes('Windows');
+            const commandsToUse = isWindows ? windowsCommands : gitCommands;
+            const shellType = isWindows ? 'PowerShell' : 'bash';
+            
+            // Display step-by-step workflow
+            addMessage(`Friday: Git Workflow Steps:
+1. 📍 Navigate to project directory
+2. 🔍 Check git repository status
+3. 📝 Update .gitignore with common patterns
+4. ➕ Stage all modified files (git add .)
+5. 📋 Show files to be committed
+6. 💾 Create commit with message: "${message}"
+7. 🌐 Check remote repository configuration
+8. 🚀 Push changes to remote repository`, 'friday');
+            
+            addMessage(`Friday: Commands for ${shellType}:\n${commandsToUse.join('\n')}`, 'friday');
+            
+            // Copy commands to clipboard
+            const commandScript = commandsToUse.join(isWindows ? '\n' : '\n');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage(`Friday: Enhanced Git commands copied to clipboard! Open ${shellType} and paste to execute.`, 'friday');
+                
+                if (isWindows) {
+                    addMessage("Friday: To run: Press Win+X → Windows PowerShell (Admin) → Paste commands", 'friday');
+                } else {
+                    addMessage("Friday: To run: Open Terminal → Paste commands", 'friday');
+                }
+                
+                // Clear the input
+                document.getElementById('commitMessage').value = '';
+                
+                // Show additional tips
+                addMessage("Friday: 💡 Tips:\n• If this is your first push, you may need to set upstream: git push -u origin main\n• Make sure you have remote repository configured\n• Check your Git credentials if push fails", 'friday');
+                
+                // Show what will be excluded
+                addMessage("Friday: 🛡️ Protected files (auto-excluded):\n• node_modules/, __pycache__/, .DS_Store\n• *.log, .env, dist/, build/\n• .git/, .vscode/, .idea/", 'friday');
+                
+            }).catch(() => {
+                addMessage(`Friday: Copy failed. Here are your ${shellType} commands:\n${commandScript}`, 'friday');
+            });
+        }
+
+        function generateCommitMessage() {
+            const commitMessages = [
+                "feat: Added new features and improvements",
+                "fix: Updated functionality and bug fixes", 
+                "style: Enhanced user interface and experience",
+                "feat: Implemented new automation features",
+                "perf: Improved performance and optimization",
+                "feat: Added LinkedIn integration functionality",
+                "docs: Updated documentation and comments",
+                "fix: Fixed bugs and enhanced stability",
+                "feat: Added voice recognition improvements",
+                "feat: Implemented new API integrations",
+                "security: Enhanced security and validation",
+                "style: Updated styling and animations",
+                "feat: Added new tool functionality",
+                "responsive: Improved responsive design",
+                "chore: Updated container configuration",
+                "refactor: Code refactoring and cleanup",
+                "test: Added tests and improved coverage",
+                "ci: Updated CI/CD pipeline configuration"
+            ];
+            
+            const randomMessage = commitMessages[Math.floor(Math.random() * commitMessages.length)];
+            document.getElementById('commitMessage').value = randomMessage;
+            addMessage(`Friday: Generated commit message: "${randomMessage}"`, 'friday');
+        }
+
+        // Enhanced Git status checker
+        function checkGitStatus() {
+            if (!selectedProjectPath) {
+                addMessage("Friday: Please select a project directory first.", 'friday');
+                return;
+            }
+
+            addMessage("Friday: Checking Git repository status...", 'friday');
+            
+            const statusCommands = [
+                `cd "${selectedProjectPath}"`,
+                'echo "=== Git Repository Information ==="',
+                'git status --porcelain || echo "Not a git repository"',
+                'echo "=== Current Branch ==="', 
+                'git branch --show-current 2>/dev/null || echo "No branches found"',
+                'echo "=== Remote Repositories ==="',
+                'git remote -v || echo "No remote repositories configured"',
+                'echo "=== Last Commit ==="',
+                'git log --oneline -1 2>/dev/null || echo "No commits found"',
+                'echo "=== Staged Files ==="',
+                'git diff --cached --name-only || echo "No staged files"',
+                'echo "=== Modified Files ==="',
+                'git diff --name-only || echo "No modified files"'
+            ];
+
+            const commandScript = statusCommands.join(' && ');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage("Friday: Git status commands copied to clipboard! Paste in terminal to check repository status.", 'friday');
+            });
+        }
+
+        // Add git status button to the control panel (insert this in the HTML control-grid section)
+        // This would be added to the HTML but showing the JavaScript function here
+
+        // Enhanced directory analysis with Git information
         function analyzeProjectStructure(files) {
             const projectInfo = {
                 totalFiles: files.length,
@@ -1165,9 +1681,11 @@
                 cssFiles: 0,
                 jsonFiles: 0,
                 hasGit: false,
+                hasGitignore: false,
                 hasNodeModules: false,
                 hasDockerfile: false,
-                excludedFiles: 0
+                excludedFiles: 0,
+                gitConfigFiles: []
             };
 
             // Analyze file types and structure
@@ -1177,13 +1695,19 @@
                 
                 // Check for specific file types
                 if (fileName.endsWith('.js')) projectInfo.jsFiles++;
-                else if (fileName.endsWith('.py')) projectInfo.pyFiles++;
-                else if (fileName.endsWith('.html')) projectInfo.htmlFiles++;
-                else if (fileName.endsWith('.css')) projectInfo.cssFiles++;
-                else if (fileName.endsWith('.json')) projectInfo.jsonFiles++;
+                if (fileName.endsWith('.py')) projectInfo.pyFiles++;
+                if (fileName.endsWith('.html')) projectInfo.htmlFiles++;
+                if (fileName.endsWith('.css')) projectInfo.cssFiles++;
+                if (fileName.endsWith('.json')) projectInfo.jsonFiles++;
+                
+                // Check for Git-related files
+                if (path.includes('/.git/')) {
+                    projectInfo.hasGit = true;
+                    projectInfo.gitConfigFiles.push(fileName);
+                }
+                if (fileName === '.gitignore') projectInfo.hasGitignore = true;
                 
                 // Check for special directories/files
-                if (path.includes('/.git/')) projectInfo.hasGit = true;
                 if (path.includes('/node_modules/')) projectInfo.hasNodeModules = true;
                 if (fileName === 'dockerfile') projectInfo.hasDockerfile = true;
                 
@@ -1193,22 +1717,369 @@
                 }
             });
 
-            // Display project analysis
-            let analysisMessage = `Friday: Project Analysis:\n`;
+            // Display enhanced project analysis
+            let analysisMessage = `Friday: Enhanced Project Analysis:\n`;
             analysisMessage += `📁 Total files: ${projectInfo.totalFiles}\n`;
-            analysisMessage += `📄 Files to include: ${projectInfo.totalFiles - projectInfo.excludedFiles}\n`;
-            analysisMessage += `🚫 Files to exclude: ${projectInfo.excludedFiles}\n`;
+            analysisMessage += `📄 Files to include in Git: ${projectInfo.totalFiles - projectInfo.excludedFiles}\n`;
+            analysisMessage += `🚫 Files to exclude: ${projectInfo.excludedFiles}\n\n`;
             
+            // File type breakdown
             if (projectInfo.jsFiles > 0) analysisMessage += `🟨 JavaScript: ${projectInfo.jsFiles} files\n`;
             if (projectInfo.pyFiles > 0) analysisMessage += `🐍 Python: ${projectInfo.pyFiles} files\n`;
             if (projectInfo.htmlFiles > 0) analysisMessage += `🌐 HTML: ${projectInfo.htmlFiles} files\n`;
             if (projectInfo.cssFiles > 0) analysisMessage += `🎨 CSS: ${projectInfo.cssFiles} files\n`;
             
-            if (projectInfo.hasGit) analysisMessage += `✅ Git repository detected\n`;
+            // Git status
+            analysisMessage += `\n📋 Git Repository Status:\n`;
+            if (projectInfo.hasGit) {
+                analysisMessage += `✅ Git repository detected\n`;
+                analysisMessage += `${projectInfo.hasGitignore ? '✅' : '⚠️'} .gitignore ${projectInfo.hasGitignore ? 'found' : 'missing - will be created'}\n`;
+            } else {
+                analysisMessage += `⚠️ Not a Git repository - git init will be run\n`;
+            }
+            
+            // Project type detection
             if (projectInfo.hasDockerfile) analysisMessage += `🐳 Docker configuration detected\n`;
             if (projectInfo.hasNodeModules) analysisMessage += `📦 Node.js project detected\n`;
 
             addMessage(analysisMessage, 'friday');
+            
+            // Provide Git setup recommendations
+            if (!projectInfo.hasGit) {
+                addMessage("Friday: 💡 Recommendation: This directory is not a Git repository. The smart Git push will initialize it for you.", 'friday');
+            }
+        }
+
+        function shouldExcludeFile(filePath) {
+            const excludePatterns = [
+                // Git and version control
+                '/.git/',
+                '.gitignore',
+                
+                // Dependencies and packages
+                '/node_modules/',
+                '/venv/',
+                '/env/',
+                '/__pycache__/',
+                '/vendor/',
+                '/packages/',
+                
+                // Build outputs
+                '/dist/',
+                '/build/',
+                '/out/',
+                '/target/',
+                
+                // IDE and editor files
+                '/.vscode/',
+                '/.idea/',
+                '.DS_Store',
+                'Thumbs.db',
+                '*.swp',
+                '*.swo',
+                
+                // Logs and temporary files
+                '/logs/',
+                '*.log',
+                '/tmp/',
+                '/temp/',
+                
+                // OS specific
+                '.DS_Store',
+                'desktop.ini',
+                
+                // Cache directories
+                '/.cache/',
+                '/cache/',
+                
+                // Coverage and test reports
+                '/coverage/',
+                '/test-results/',
+                
+                // Compiled files
+                '*.pyc',
+                '*.pyo',
+                '*.class',
+                '*.o',
+                '*.so',
+                
+                // Large media files (optional exclusion)
+                '*.mp4',
+                '*.avi',
+                '*.mov',
+                '*.mkv'
+            ];
+
+
+            const lowerPath = filePath.toLowerCase();
+            return excludePatterns.some(pattern => {
+                if (pattern.includes('/')) {
+                    return lowerPath.includes(pattern.toLowerCase());
+                } else if (pattern.startsWith('*.')) {
+                    return lowerPath.endsWith(pattern.substring(1).toLowerCase());
+                } else {
+                    return lowerPath.includes(pattern.toLowerCase());
+                }
+            });
+        }
+
+        function executeSmartGitCommands() {
+            const message = document.getElementById('commitMessage').value.trim();
+            if (!message) {
+                addMessage("Friday: Please enter a commit message first.", 'friday');
+                return;
+            }
+
+            if (!selectedProjectPath) {
+                addMessage("Friday: Please select a project directory first using the 'Select Folder' button.", 'friday');
+                return;
+            }
+
+            addMessage("Friday: Executing comprehensive Git workflow with smart file management...", 'friday');
+            
+            // Enhanced git commands with better error handling and status checking
+            const gitCommands = [
+                `cd "${selectedProjectPath}"`,
+                '# Check if we are in a git repository',
+                'git status || (echo "Not a git repository. Initializing..." && git init)',
+                '# Show current status',
+                'echo "=== Current Git Status ===" && git status --porcelain',
+                '# Add gitignore patterns if they don\'t exist',
+                'echo "node_modules/" >> .gitignore 2>/dev/null || true',
+                'echo "__pycache__/" >> .gitignore 2>/dev/null || true',
+                'echo ".DS_Store" >> .gitignore 2>/dev/null || true',
+                'echo "*.log" >> .gitignore 2>/dev/null || true',
+                'echo ".env" >> .gitignore 2>/dev/null || true',
+                'echo "dist/" >> .gitignore 2>/dev/null || true',
+                'echo "build/" >> .gitignore 2>/dev/null || true',
+                '# Add all files (respecting .gitignore)',
+                'git add . && echo "✅ Files staged successfully"',
+                '# Add .gitignore itself if it was created',
+                'git add .gitignore 2>/dev/null || true',
+                '# Show what will be committed',
+                'echo "=== Files to be committed ===" && git diff --cached --name-only',
+                '# Commit with the provided message',
+                `git commit -m "${message}" && echo "✅ Commit created successfully"`,
+                '# Check if remote exists, if not, prompt user',
+                'git remote -v || echo "⚠️ No remote repository configured. Please set up remote first: git remote add origin <url>"',
+                '# Push to remote (this might fail if no remote is set)',
+                'git push && echo "✅ Push completed successfully" || echo "❌ Push failed - check remote configuration"'
+            ];
+
+            // Enhanced PowerShell commands for Windows
+            const windowsCommands = [
+                `Set-Location "${selectedProjectPath}"`,
+                '# Check if we are in a git repository',
+                'try { git status } catch { Write-Host "Not a git repository. Initializing..." ; git init }',
+                '# Show current status',
+                'Write-Host "=== Current Git Status ===" ; git status --porcelain',
+                '# Create or update .gitignore',
+                'if (!(Test-Path .gitignore)) { New-Item .gitignore -ItemType File -Force }',
+                'Add-Content .gitignore "node_modules/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "__pycache__/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore ".DS_Store" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "*.log" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore ".env" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "dist/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "build/" -ErrorAction SilentlyContinue',
+                '# Add all files (respecting .gitignore)',
+                'git add . ; if ($?) { Write-Host "✅ Files staged successfully" }',
+                '# Add .gitignore itself',
+                'git add .gitignore',
+                '# Show what will be committed',
+                'Write-Host "=== Files to be committed ===" ; git diff --cached --name-only',
+                '# Commit with the provided message',
+                `git commit -m "${message}" ; if ($?) { Write-Host "✅ Commit created successfully" }`,
+                '# Check remote configuration',
+                'try { git remote -v } catch { Write-Host "⚠️ No remote repository configured. Please set up remote first: git remote add origin <url>" }',
+                '# Attempt to push',
+                'try { git push ; Write-Host "✅ Push completed successfully" } catch { Write-Host "❌ Push failed - check remote configuration or run: git push --set-upstream origin main" }'
+            ];
+
+            // Show the commands that will be executed
+            addMessage(`Friday: Comprehensive Git workflow for: ${selectedProjectPath}`, 'friday');
+            
+            // Detect OS and provide appropriate commands
+            const isWindows = navigator.userAgent.includes('Windows');
+            const commandsToUse = isWindows ? windowsCommands : gitCommands;
+            const shellType = isWindows ? 'PowerShell' : 'bash';
+            
+            // Display step-by-step workflow
+            addMessage(`Friday: Git Workflow Steps:
+1. 📍 Navigate to project directory
+2. 🔍 Check git repository status
+3. 📝 Update .gitignore with common patterns
+4. ➕ Stage all modified files (git add .)
+5. 📋 Show files to be committed
+6. 💾 Create commit with message: "${message}"
+7. 🌐 Check remote repository configuration
+8. 🚀 Push changes to remote repository`, 'friday');
+            
+            addMessage(`Friday: Commands for ${shellType}:\n${commandsToUse.join('\n')}`, 'friday');
+            
+            // Copy commands to clipboard
+            const commandScript = commandsToUse.join(isWindows ? '\n' : '\n');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage(`Friday: Enhanced Git commands copied to clipboard! Open ${shellType} and paste to execute.`, 'friday');
+                
+                if (isWindows) {
+                    addMessage("Friday: To run: Press Win+X → Windows PowerShell (Admin) → Paste commands", 'friday');
+                } else {
+                    addMessage("Friday: To run: Open Terminal → Paste commands", 'friday');
+                }
+                
+                // Clear the input
+                document.getElementById('commitMessage').value = '';
+                
+                // Show additional tips
+                addMessage("Friday: 💡 Tips:\n• If this is your first push, you may need to set upstream: git push -u origin main\n• Make sure you have remote repository configured\n• Check your Git credentials if push fails", 'friday');
+                
+                // Show what will be excluded
+                addMessage("Friday: 🛡️ Protected files (auto-excluded):\n• node_modules/, __pycache__/, .DS_Store\n• *.log, .env, dist/, build/\n• .git/, .vscode/, .idea/", 'friday');
+                
+            }).catch(() => {
+                addMessage(`Friday: Copy failed. Here are your ${shellType} commands:\n${commandScript}`, 'friday');
+            });
+        }
+
+        function generateCommitMessage() {
+            const commitMessages = [
+                "feat: Added new features and improvements",
+                "fix: Updated functionality and bug fixes", 
+                "style: Enhanced user interface and experience",
+                "feat: Implemented new automation features",
+                "perf: Improved performance and optimization",
+                "feat: Added LinkedIn integration functionality",
+                "docs: Updated documentation and comments",
+                "fix: Fixed bugs and enhanced stability",
+                "feat: Added voice recognition improvements",
+                "feat: Implemented new API integrations",
+                "security: Enhanced security and validation",
+                "style: Updated styling and animations",
+                "feat: Added new tool functionality",
+                "responsive: Improved responsive design",
+                "chore: Updated container configuration",
+                "refactor: Code refactoring and cleanup",
+                "test: Added tests and improved coverage",
+                "ci: Updated CI/CD pipeline configuration"
+            ];
+            
+            const randomMessage = commitMessages[Math.floor(Math.random() * commitMessages.length)];
+            document.getElementById('commitMessage').value = randomMessage;
+            addMessage(`Friday: Generated commit message: "${randomMessage}"`, 'friday');
+        }
+
+        // Enhanced Git status checker
+        function checkGitStatus() {
+            if (!selectedProjectPath) {
+                addMessage("Friday: Please select a project directory first.", 'friday');
+                return;
+            }
+
+            addMessage("Friday: Checking Git repository status...", 'friday');
+            
+            const statusCommands = [
+                `cd "${selectedProjectPath}"`,
+                'echo "=== Git Repository Information ==="',
+                'git status --porcelain || echo "Not a git repository"',
+                'echo "=== Current Branch ==="', 
+                'git branch --show-current 2>/dev/null || echo "No branches found"',
+                'echo "=== Remote Repositories ==="',
+                'git remote -v || echo "No remote repositories configured"',
+                'echo "=== Last Commit ==="',
+                'git log --oneline -1 2>/dev/null || echo "No commits found"',
+                'echo "=== Staged Files ==="',
+                'git diff --cached --name-only || echo "No staged files"',
+                'echo "=== Modified Files ==="',
+                'git diff --name-only || echo "No modified files"'
+            ];
+
+            const commandScript = statusCommands.join(' && ');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage("Friday: Git status commands copied to clipboard! Paste in terminal to check repository status.", 'friday');
+            });
+        }
+
+        // Add git status button to the control panel (insert this in the HTML control-grid section)
+        // This would be added to the HTML but showing the JavaScript function here
+
+        // Enhanced directory analysis with Git information
+        function analyzeProjectStructure(files) {
+            const projectInfo = {
+                totalFiles: files.length,
+                jsFiles: 0,
+                pyFiles: 0,
+                htmlFiles: 0,
+                cssFiles: 0,
+                jsonFiles: 0,
+                hasGit: false,
+                hasGitignore: false,
+                hasNodeModules: false,
+                hasDockerfile: false,
+                excludedFiles: 0,
+                gitConfigFiles: []
+            };
+
+            // Analyze file types and structure
+            Array.from(files).forEach(file => {
+                const fileName = file.name.toLowerCase();
+                const path = file.webkitRelativePath.toLowerCase();
+                
+                // Check for specific file types
+                if (fileName.endsWith('.js')) projectInfo.jsFiles++;
+                if (fileName.endsWith('.py')) projectInfo.pyFiles++;
+                if (fileName.endsWith('.html')) projectInfo.htmlFiles++;
+                if (fileName.endsWith('.css')) projectInfo.cssFiles++;
+                if (fileName.endsWith('.json')) projectInfo.jsonFiles++;
+                
+                // Check for Git-related files
+                if (path.includes('/.git/')) {
+                    projectInfo.hasGit = true;
+                    projectInfo.gitConfigFiles.push(fileName);
+                }
+                if (fileName === '.gitignore') projectInfo.hasGitignore = true;
+                
+                // Check for special directories/files
+                if (path.includes('/node_modules/')) projectInfo.hasNodeModules = true;
+                if (fileName === 'dockerfile') projectInfo.hasDockerfile = true;
+                
+                // Count files that would be excluded
+                if (shouldExcludeFile(file.webkitRelativePath)) {
+                    projectInfo.excludedFiles++;
+                }
+            });
+
+            // Display enhanced project analysis
+            let analysisMessage = `Friday: Enhanced Project Analysis:\n`;
+            analysisMessage += `📁 Total files: ${projectInfo.totalFiles}\n`;
+            analysisMessage += `📄 Files to include in Git: ${projectInfo.totalFiles - projectInfo.excludedFiles}\n`;
+            analysisMessage += `🚫 Files to exclude: ${projectInfo.excludedFiles}\n\n`;
+            
+            // File type breakdown
+            if (projectInfo.jsFiles > 0) analysisMessage += `🟨 JavaScript: ${projectInfo.jsFiles} files\n`;
+            if (projectInfo.pyFiles > 0) analysisMessage += `🐍 Python: ${projectInfo.pyFiles} files\n`;
+            if (projectInfo.htmlFiles > 0) analysisMessage += `🌐 HTML: ${projectInfo.htmlFiles} files\n`;
+            if (projectInfo.cssFiles > 0) analysisMessage += `🎨 CSS: ${projectInfo.cssFiles} files\n`;
+            
+            // Git status
+            analysisMessage += `\n📋 Git Repository Status:\n`;
+            if (projectInfo.hasGit) {
+                analysisMessage += `✅ Git repository detected\n`;
+                analysisMessage += `${projectInfo.hasGitignore ? '✅' : '⚠️'} .gitignore ${projectInfo.hasGitignore ? 'found' : 'missing - will be created'}\n`;
+            } else {
+                analysisMessage += `⚠️ Not a Git repository - git init will be run\n`;
+            }
+            
+            // Project type detection
+            if (projectInfo.hasDockerfile) analysisMessage += `🐳 Docker configuration detected\n`;
+            if (projectInfo.hasNodeModules) analysisMessage += `📦 Node.js project detected\n`;
+
+            addMessage(analysisMessage, 'friday');
+            
+            // Provide Git setup recommendations
+            if (!projectInfo.hasGit) {
+                addMessage("Friday: 💡 Recommendation: This directory is not a Git repository. The smart Git push will initialize it for you.", 'friday');
+            }
         }
 
         function shouldExcludeFile(filePath) {
@@ -1295,53 +2166,95 @@
                 return;
             }
 
-            addMessage("Friday: Executing smart Git commands with file filtering...", 'friday');
+            addMessage("Friday: Executing comprehensive Git workflow with smart file management...", 'friday');
             
-            // Create smart git commands that exclude unwanted files
+            // Enhanced git commands with better error handling and status checking
             const gitCommands = [
                 `cd "${selectedProjectPath}"`,
-                'git add .',
-                // Add gitignore patterns if they don't exist
+                '# Check if we are in a git repository',
+                'git status || (echo "Not a git repository. Initializing..." && git init)',
+                '# Show current status',
+                'echo "=== Current Git Status ===" && git status --porcelain',
+                '# Add gitignore patterns if they don\'t exist',
                 'echo "node_modules/" >> .gitignore 2>/dev/null || true',
                 'echo "__pycache__/" >> .gitignore 2>/dev/null || true',
                 'echo ".DS_Store" >> .gitignore 2>/dev/null || true',
                 'echo "*.log" >> .gitignore 2>/dev/null || true',
+                'echo ".env" >> .gitignore 2>/dev/null || true',
+                'echo "dist/" >> .gitignore 2>/dev/null || true',
+                'echo "build/" >> .gitignore 2>/dev/null || true',
+                '# Add all files (respecting .gitignore)',
+                'git add . && echo "✅ Files staged successfully"',
+                '# Add .gitignore itself if it was created',
                 'git add .gitignore 2>/dev/null || true',
-                `git commit -m "${message}"`,
-                'git push'
+                '# Show what will be committed',
+                'echo "=== Files to be committed ===" && git diff --cached --name-only',
+                '# Commit with the provided message',
+                `git commit -m "${message}" && echo "✅ Commit created successfully"`,
+                '# Check if remote exists, if not, prompt user',
+                'git remote -v || echo "⚠️ No remote repository configured. Please set up remote first: git remote add origin <url>"',
+                '# Push to remote (this might fail if no remote is set)',
+                'git push && echo "✅ Push completed successfully" || echo "❌ Push failed - check remote configuration"'
             ];
 
-            // Alternative PowerShell-friendly commands for Windows
+            // Enhanced PowerShell commands for Windows
             const windowsCommands = [
                 `Set-Location "${selectedProjectPath}"`,
-                'git add .',
-                'if (!(Test-Path .gitignore)) { New-Item .gitignore -ItemType File }',
+                '# Check if we are in a git repository',
+                'try { git status } catch { Write-Host "Not a git repository. Initializing..." ; git init }',
+                '# Show current status',
+                'Write-Host "=== Current Git Status ===" ; git status --porcelain',
+                '# Create or update .gitignore',
+                'if (!(Test-Path .gitignore)) { New-Item .gitignore -ItemType File -Force }',
                 'Add-Content .gitignore "node_modules/" -ErrorAction SilentlyContinue',
                 'Add-Content .gitignore "__pycache__/" -ErrorAction SilentlyContinue',
                 'Add-Content .gitignore ".DS_Store" -ErrorAction SilentlyContinue',
                 'Add-Content .gitignore "*.log" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore ".env" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "dist/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "build/" -ErrorAction SilentlyContinue',
+                '# Add all files (respecting .gitignore)',
+                'git add . ; if ($?) { Write-Host "✅ Files staged successfully" }',
+                '# Add .gitignore itself',
                 'git add .gitignore',
-                `git commit -m "${message}"`,
-                'git push'
+                '# Show what will be committed',
+                'Write-Host "=== Files to be committed ===" ; git diff --cached --name-only',
+                '# Commit with the provided message',
+                `git commit -m "${message}" ; if ($?) { Write-Host "✅ Commit created successfully" }`,
+                '# Check remote configuration',
+                'try { git remote -v } catch { Write-Host "⚠️ No remote repository configured. Please set up remote first: git remote add origin <url>" }',
+                '# Attempt to push',
+                'try { git push ; Write-Host "✅ Push completed successfully" } catch { Write-Host "❌ Push failed - check remote configuration or run: git push --set-upstream origin main" }'
             ];
 
             // Show the commands that will be executed
-            addMessage(`Friday: Smart Git workflow for: ${selectedProjectPath}`, 'friday');
+            addMessage(`Friday: Comprehensive Git workflow for: ${selectedProjectPath}`, 'friday');
             
             // Detect OS and provide appropriate commands
             const isWindows = navigator.userAgent.includes('Windows');
             const commandsToUse = isWindows ? windowsCommands : gitCommands;
             const shellType = isWindows ? 'PowerShell' : 'bash';
             
+            // Display step-by-step workflow
+            addMessage(`Friday: Git Workflow Steps:
+1. 📍 Navigate to project directory
+2. 🔍 Check git repository status
+3. 📝 Update .gitignore with common patterns
+4. ➕ Stage all modified files (git add .)
+5. 📋 Show files to be committed
+6. 💾 Create commit with message: "${message}"
+7. 🌐 Check remote repository configuration
+8. 🚀 Push changes to remote repository`, 'friday');
+            
             addMessage(`Friday: Commands for ${shellType}:\n${commandsToUse.join('\n')}`, 'friday');
             
             // Copy commands to clipboard
-            const commandScript = commandsToUse.join(isWindows ? '; ' : ' && ');
+            const commandScript = commandsToUse.join(isWindows ? '\n' : '\n');
             navigator.clipboard.writeText(commandScript).then(() => {
-                addMessage(`Friday: Smart Git commands copied to clipboard! Open ${shellType} and paste to execute.`, 'friday');
+                addMessage(`Friday: Enhanced Git commands copied to clipboard! Open ${shellType} and paste to execute.`, 'friday');
                 
                 if (isWindows) {
-                    addMessage("Friday: To run: Press Win+X → Windows PowerShell → Paste commands", 'friday');
+                    addMessage("Friday: To run: Press Win+X → Windows PowerShell (Admin) → Paste commands", 'friday');
                 } else {
                     addMessage("Friday: To run: Open Terminal → Paste commands", 'friday');
                 }
@@ -1349,75 +2262,37 @@
                 // Clear the input
                 document.getElementById('commitMessage').value = '';
                 
-                // Show success message
-                addMessage("Friday: Smart Git workflow ready! Unwanted files will be automatically excluded.", 'friday');
+                // Show additional tips
+                addMessage("Friday: 💡 Tips:\n• If this is your first push, you may need to set upstream: git push -u origin main\n• Make sure you have remote repository configured\n• Check your Git credentials if push fails", 'friday');
                 
                 // Show what will be excluded
-                addMessage("Friday: Files automatically excluded: .git/, node_modules/, __pycache__/, .DS_Store, *.log, build folders, and more.", 'friday');
+                addMessage("Friday: 🛡️ Protected files (auto-excluded):\n• node_modules/, __pycache__/, .DS_Store\n• *.log, .env, dist/, build/\n• .git/, .vscode/, .idea/", 'friday');
                 
             }).catch(() => {
                 addMessage(`Friday: Copy failed. Here are your ${shellType} commands:\n${commandScript}`, 'friday');
             });
         }
 
-        function executeGitCommands() {
-            const message = document.getElementById('commitMessage').value.trim();
-            if (!message) {
-                addMessage("Friday: Please enter a commit message first.", 'friday');
-                return;
-            }
-
-            addMessage("Friday: Executing Git commands automatically...", 'friday');
-            
-            // Create the git command sequence
-            const gitCommands = [
-                'git add .',
-                `git commit -m "${message}"`,
-                'git push'
-            ];
-
-            // Show the commands that will be executed
-            addMessage(`Friday: Running the following commands:\n${gitCommands.join('\n')}`, 'friday');
-            
-            // Copy git commands to clipboard for manual execution
-            const commandScript = gitCommands.join(' && ');
-            navigator.clipboard.writeText(commandScript).then(() => {
-                addMessage("Friday: Git commands copied to clipboard! Open your terminal and paste to execute.", 'friday');
-                
-                // Also try to open terminal automatically (works on some systems)
-                if (navigator.userAgent.includes('Windows')) {
-                    addMessage("Friday: Note: On Windows, you can press Win+R, type 'cmd', then paste the commands.", 'friday');
-                } else {
-                    addMessage("Friday: Note: Open your terminal and paste the commands to execute.", 'friday');
-                }
-                
-                // Clear the input
-                document.getElementById('commitMessage').value = '';
-                
-                // Show success message
-                addMessage("Friday: Git workflow ready! The commands are in your clipboard.", 'friday');
-            }).catch(() => {
-                addMessage(`Friday: Here are your git commands to copy manually:\n${commandScript}`, 'friday');
-            });
-        }
-
         function generateCommitMessage() {
             const commitMessages = [
-                "Added new features and improvements",
-                "Updated functionality and bug fixes",
-                "Enhanced user interface and experience",
-                "Implemented new automation features",
-                "Improved performance and optimization",
-                "Added LinkedIn integration functionality",
-                "Updated documentation and comments",
-                "Fixed bugs and enhanced stability",
-                "Added voice recognition improvements",
-                "Implemented new API integrations",
-                "Enhanced security and validation",
-                "Updated styling and animations",
-                "Added new tool functionality",
-                "Improved responsive design",
-                "Updated container configuration"
+                "feat: Added new features and improvements",
+                "fix: Updated functionality and bug fixes", 
+                "style: Enhanced user interface and experience",
+                "feat: Implemented new automation features",
+                "perf: Improved performance and optimization",
+                "feat: Added LinkedIn integration functionality",
+                "docs: Updated documentation and comments",
+                "fix: Fixed bugs and enhanced stability",
+                "feat: Added voice recognition improvements",
+                "feat: Implemented new API integrations",
+                "security: Enhanced security and validation",
+                "style: Updated styling and animations",
+                "feat: Added new tool functionality",
+                "responsive: Improved responsive design",
+                "chore: Updated container configuration",
+                "refactor: Code refactoring and cleanup",
+                "test: Added tests and improved coverage",
+                "ci: Updated CI/CD pipeline configuration"
             ];
             
             const randomMessage = commitMessages[Math.floor(Math.random() * commitMessages.length)];
@@ -1425,310 +2300,118 @@
             addMessage(`Friday: Generated commit message: "${randomMessage}"`, 'friday');
         }
 
-        function postToLinkedInFromInput() {
-            const postContent = document.getElementById('linkedinInput').value.trim();
-            if (postContent) {
-                postToLinkedIn(postContent);
-                document.getElementById('linkedinInput').value = '';
-            } else {
-                addMessage("Friday: Please enter your post content first.", 'friday');
+        // Enhanced Git status checker
+        function checkGitStatus() {
+            if (!selectedProjectPath) {
+                addMessage("Friday: Please select a project directory first.", 'friday');
+                return;
             }
-        }
 
-        function postToLinkedIn(content) {
-            addMessage("Friday: Opening LinkedIn with your post content...", 'friday');
+            addMessage("Friday: Checking Git repository status...", 'friday');
             
-            // Create enhanced post with professional formatting
-            const enhancedContent = formatLinkedInPost(content);
-            
-            // Use LinkedIn's share URL (works without authentication)
-            const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(enhancedContent)}`;
-            
-            // Alternative: Direct LinkedIn feed URL for better UX
-            const directLinkedInUrl = `https://www.linkedin.com/feed/`;
-            
-            window.open(directLinkedInUrl, '_blank');
-            
-            // Copy formatted content to clipboard for easy pasting
-            navigator.clipboard.writeText(enhancedContent).then(() => {
-                addMessage("Friday: LinkedIn opened! Your formatted post has been copied to clipboard - just paste it in the 'Start a post' section.", 'friday');
-                addMessage(`Friday: Your formatted post:\n\n${enhancedContent}`, 'friday');
-            }).catch(() => {
-                addMessage("Friday: LinkedIn opened! Here's your formatted post to copy:", 'friday');
-                addMessage(`${enhancedContent}`, 'friday');
-            });
-        }
-
-        function formatLinkedInPost(content) {
-            // Add professional formatting and hashtags
-            let formattedPost = content;
-            
-            // Add line breaks for readability if it's a long post
-            if (content.length > 100) {
-                formattedPost = content + '\n\n';
-            }
-            
-            // Suggest relevant hashtags based on content
-            const hashtags = generateHashtags(content);
-            if (hashtags.length > 0) {
-                formattedPost += '\n\n' + hashtags.join(' ');
-            }
-            
-            // Add Friday signature
-            formattedPost += '\n\n#FridayAI #VirtualAssistant #TechInnovation';
-            
-            return formattedPost;
-        }
-
-        function generateHashtags(content) {
-            const hashtagMap = {
-                'project': '#Project',
-                'development': '#Development',
-                'coding': '#Coding',
-                'programming': '#Programming',
-                'javascript': '#JavaScript',
-                'python': '#Python',
-                'ai': '#AI',
-                'machine learning': '#MachineLearning',
-                'web': '#WebDevelopment',
-                'technology': '#Technology',
-                'innovation': '#Innovation',
-                'startup': '#Startup',
-                'business': '#Business',
-                'success': '#Success',
-                'achievement': '#Achievement',
-                'learning': '#Learning',
-                'growth': '#Growth',
-                'team': '#TeamWork',
-                'collaboration': '#Collaboration',
-                'leadership': '#Leadership',
-                'career': '#Career',
-                'professional': '#Professional',
-                'networking': '#Networking',
-                'docker': '#Docker',
-                'container': '#DevOps',
-                'api': '#API',
-                'frontend': '#Frontend',
-                'backend': '#Backend',
-                'fullstack': '#FullStack'
-            };
-            
-            const suggestions = [];
-            const lowerContent = content.toLowerCase();
-            
-            for (const [keyword, hashtag] of Object.entries(hashtagMap)) {
-                if (lowerContent.includes(keyword) && suggestions.length < 5) {
-                    suggestions.push(hashtag);
-                }
-            }
-            
-            return suggestions;
-        }
-
-        function generatePostIdeas() {
-            const postIdeas = [
-                "🚀 Just completed an exciting project using cutting-edge technology! Here's what I learned...",
-                "💡 Sharing insights from my latest development experience with AI and automation...",
-                "🎯 Reflecting on the journey of building innovative solutions that make a difference...",
-                "🔧 Breaking down complex technical challenges and how I solved them step by step...",
-                "🌟 Celebrating small wins in the world of software development and continuous learning...",
-                "📈 Key lessons learned while integrating multiple technologies in a single project...",
-                "🤝 The importance of collaboration and knowledge sharing in the tech community...",
-                "🎨 How good UI/UX design principles transformed my latest application...",
-                "⚡ Performance optimization tips that made a real difference in my recent project...",
-                "🔮 Exploring the future of virtual assistants and AI-powered applications..."
+            const statusCommands = [
+                `cd "${selectedProjectPath}"`,
+                'echo "=== Git Repository Information ==="',
+                'git status --porcelain || echo "Not a git repository"',
+                'echo "=== Current Branch ==="', 
+                'git branch --show-current 2>/dev/null || echo "No branches found"',
+                'echo "=== Remote Repositories ==="',
+                'git remote -v || echo "No remote repositories configured"',
+                'echo "=== Last Commit ==="',
+                'git log --oneline -1 2>/dev/null || echo "No commits found"',
+                'echo "=== Staged Files ==="',
+                'git diff --cached --name-only || echo "No staged files"',
+                'echo "=== Modified Files ==="',
+                'git diff --name-only || echo "No modified files"'
             ];
-            
-            const randomIdea = postIdeas[Math.floor(Math.random() * postIdeas.length)];
-            document.getElementById('linkedinInput').value = randomIdea;
-            addMessage(`Friday: Here's a post idea for you! Check the LinkedIn section below.`, 'friday');
+
+            const commandScript = statusCommands.join(' && ');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage("Friday: Git status commands copied to clipboard! Paste in terminal to check repository status.", 'friday');
+            });
         }
 
-        // Unit conversion function
-        function convertUnits(value, fromUnit, toUnit) {
-            const conversions = {
-                // Length
-                'meter_to_feet': value * 3.28084,
-                'feet_to_meter': value / 3.28084,
-                'km_to_miles': value * 0.621371,
-                'miles_to_km': value / 0.621371,
-                
-                // Weight
-                'kg_to_pounds': value * 2.20462,
-                'pounds_to_kg': value / 2.20462,
-                
-                // Temperature
-                'celsius_to_fahrenheit': (value * 9/5) + 32,
-                'fahrenheit_to_celsius': (value - 32) * 5/9
+        // Add git status button to the control panel (insert this in the HTML control-grid section)
+        // This would be added to the HTML but showing the JavaScript function here
+
+        // Enhanced directory analysis with Git information
+        function analyzeProjectStructure(files) {
+            const projectInfo = {
+                totalFiles: files.length,
+                jsFiles: 0,
+                pyFiles: 0,
+                htmlFiles: 0,
+                cssFiles: 0,
+                jsonFiles: 0,
+                hasGit: false,
+                hasGitignore: false,
+                hasNodeModules: false,
+                hasDockerfile: false,
+                excludedFiles: 0,
+                gitConfigFiles: []
             };
+
+            // Analyze file types and structure
+            Array.from(files).forEach(file => {
+                const fileName = file.name.toLowerCase();
+                const path = file.webkitRelativePath.toLowerCase();
+                
+                // Check for specific file types
+                if (fileName.endsWith('.js')) projectInfo.jsFiles++;
+                if (fileName.endsWith('.py')) projectInfo.pyFiles++;
+                if (fileName.endsWith('.html')) projectInfo.htmlFiles++;
+                if (fileName.endsWith('.css')) projectInfo.cssFiles++;
+                if (fileName.endsWith('.json')) projectInfo.jsonFiles++;
+                
+                // Check for Git-related files
+                if (path.includes('/.git/')) {
+                    projectInfo.hasGit = true;
+                    projectInfo.gitConfigFiles.push(fileName);
+                }
+                if (fileName === '.gitignore') projectInfo.hasGitignore = true;
+                
+                // Check for special directories/files
+                if (path.includes('/node_modules/')) projectInfo.hasNodeModules = true;
+                if (fileName === 'dockerfile') projectInfo.hasDockerfile = true;
+                
+                // Count files that would be excluded
+                if (shouldExcludeFile(file.webkitRelativePath)) {
+                    projectInfo.excludedFiles++;
+                }
+            });
+
+            // Display enhanced project analysis
+            let analysisMessage = `Friday: Enhanced Project Analysis:\n`;
+            analysisMessage += `📁 Total files: ${projectInfo.totalFiles}\n`;
+            analysisMessage += `📄 Files to include in Git: ${projectInfo.totalFiles - projectInfo.excludedFiles}\n`;
+            analysisMessage += `🚫 Files to exclude: ${projectInfo.excludedFiles}\n\n`;
             
-            const conversionKey = `${fromUnit}_to_${toUnit}`;
-            if (conversions[conversionKey]) {
-                const result = conversions[conversionKey].toFixed(2);
-                addMessage(`Friday: ${value} ${fromUnit} = ${result} ${toUnit}`, 'friday');
+            // File type breakdown
+            if (projectInfo.jsFiles > 0) analysisMessage += `🟨 JavaScript: ${projectInfo.jsFiles} files\n`;
+            if (projectInfo.pyFiles > 0) analysisMessage += `🐍 Python: ${projectInfo.pyFiles} files\n`;
+            if (projectInfo.htmlFiles > 0) analysisMessage += `🌐 HTML: ${projectInfo.htmlFiles} files\n`;
+            if (projectInfo.cssFiles > 0) analysisMessage += `🎨 CSS: ${projectInfo.cssFiles} files\n`;
+            
+            // Git status
+            analysisMessage += `\n📋 Git Repository Status:\n`;
+            if (projectInfo.hasGit) {
+                analysisMessage += `✅ Git repository detected\n`;
+                analysisMessage += `${projectInfo.hasGitignore ? '✅' : '⚠️'} .gitignore ${projectInfo.hasGitignore ? 'found' : 'missing - will be created'}\n`;
             } else {
-                addMessage("Friday: Conversion not supported. Available: meter↔feet, km↔miles, kg↔pounds, celsius↔fahrenheit", 'friday');
-            }
-        }
-        
-        function sendWhatsApp() {
-            const phoneNumber = document.getElementById('phoneInput').value.trim();
-            
-            if (!phoneNumber) {
-                addMessage("Friday: Please enter a phone number first.", 'friday');
-                return;
+                analysisMessage += `⚠️ Not a Git repository - git init will be run\n`;
             }
             
-            if (!phoneNumber.startsWith('+')) {
-                addMessage("Friday: Please include the country code (e.g., +1234567890).", 'friday');
-                return;
-            }
+            // Project type detection
+            if (projectInfo.hasDockerfile) analysisMessage += `🐳 Docker configuration detected\n`;
+            if (projectInfo.hasNodeModules) analysisMessage += `📦 Node.js project detected\n`;
+
+            addMessage(analysisMessage, 'friday');
             
-            addMessage("Friday: Please speak your message now...", 'friday');
-            
-            // Start voice recognition for message
-            if (recognition) {
-                recognition.onresult = function(event) {
-                    const message = event.results[0][0].transcript;
-                    addMessage(`Your message: "${message}"`, 'user');
-                    
-                    // Open WhatsApp Web with pre-filled message
-                    const whatsappURL = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-                    window.open(whatsappURL, '_blank');
-                    addMessage("Friday: WhatsApp Web opened with your message. Make sure you're logged in!", 'friday');
-                    
-                    // Reset recognition for normal commands
-                    recognition.onresult = function(event) {
-                        const transcript = event.results[0][0].transcript.toLowerCase().trim();
-                        addMessage(`You: ${transcript}`, 'user');
-                        processVoiceCommand(transcript);
-                    };
-                };
-                recognition.start();
+            // Provide Git setup recommendations
+            if (!projectInfo.hasGit) {
+                addMessage("Friday: 💡 Recommendation: This directory is not a Git repository. The smart Git push will initialize it for you.", 'friday');
             }
         }
-
-        // Feature details
-        function showFeatureDetails(feature) {
-            const details = {
-                voice: "🎤 Voice Recognition:\n• Natural language processing\n• Multiple language support\n• Noise cancellation\n• Context understanding",
-                smart: "🧠 Smart Automation:\n• Learning algorithms\n• Predictive responses\n• Custom workflows\n• Intelligent suggestions",
-                integration: "🔗 Integration Features:\n• WhatsApp messaging\n• Web browser control\n• System applications\n• Third-party APIs",
-                security: "🔒 Security & Privacy:\n• Local processing\n• Encrypted communications\n• No data collection\n• User control"
-            };
-            
-            addMessage(`Friday: ${details[feature]}`, 'friday');
-        }
-
-        // UI Helper functions
-        function addMessage(text, type) {
-            const messagesContainer = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type === 'user' ? 'user-message' : 'friday-message'}`;
-            messageDiv.innerHTML = text.replace(/\n/g, '<br>');
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        function updateVoiceButton() {
-            const voiceBtn = document.getElementById('voiceBtn');
-            if (isListening) {
-                voiceBtn.classList.add('listening');
-                voiceBtn.innerHTML = '🔴';
-                voiceBtn.title = 'Stop Listening';
-            } else {
-                voiceBtn.classList.remove('listening');
-                voiceBtn.innerHTML = '🎤';
-                voiceBtn.title = 'Start Voice Recognition';
-            }
-        }
-
-        function updateStatus(message, type) {
-            const indicator = document.getElementById('statusIndicator');
-            indicator.style.background = type === 'listening' ? '#ff6b6b' : 
-                                       type === 'error' ? '#f44336' : '#4CAF50';
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Friday Assistant loaded!');
-            initSpeechRecognition();
-            
-            // Add debugging for all buttons
-            document.querySelectorAll('.control-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    console.log('Button clicked:', this.textContent);
-                    
-                    // Handle different types of control buttons
-                    if (this.dataset.command) {
-                        executeCommand(this.dataset.command);
-                    } else if (this.dataset.app) {
-                        openApp(this.dataset.app);
-                    } else if (this.dataset.action === 'music') {
-                        playMusic();
-                    }
-                });
-            });
-            
-            // Voice button
-            document.getElementById('voiceBtn').addEventListener('click', function() {
-                console.log('Voice button clicked');
-                if (recognition) {
-                    if (isListening) {
-                        recognition.stop();
-                    } else {
-                        recognition.start();
-                    }
-                } else {
-                    addMessage("Friday: Voice recognition is not supported in your browser.", 'friday');
-                }
-            });
-            
-            // Send button
-            document.getElementById('sendBtn').addEventListener('click', function() {
-                console.log('Send button clicked');
-                const input = document.getElementById('chatInput');
-                const message = input.value.trim();
-                if (message) {
-                    addMessage(`You: ${message}`, 'user');
-                    processVoiceCommand(message.toLowerCase());
-                    input.value = '';
-                }
-            });
-            
-            // Enter key for chat input
-            document.getElementById('chatInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('sendBtn').click();
-                }
-            });
-            
-            // Phone input formatting
-            document.getElementById('phoneInput').addEventListener('input', function(e) {
-                let value = e.target.value.replace(/[^\d+]/g, '');
-                if (value && !value.startsWith('+')) {
-                    value = '+' + value;
-                }
-                e.target.value = value;
-            });
-            
-            // WhatsApp button
-            document.getElementById('whatsappBtn').addEventListener('click', function() {
-                console.log('WhatsApp button clicked');
-                sendWhatsApp();
-            });
-            
-            // Feature cards
-            document.querySelectorAll('.feature-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    console.log('Feature card clicked');
-                    const feature = this.dataset.feature;
-                    if (feature) {
-                        showFeatureDetails(feature);
-                    }
-                });
-            });
-        });
 
         // Particle effects
         document.addEventListener('mousemove', function(e) {
