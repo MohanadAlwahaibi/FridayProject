@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  nginx-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: friday-web
+    ports:
+      - "8080:80"
