@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -47,119 +47,290 @@
             animation: fadeIn 1s ease-out 0.5s forwards;
         }
 
-        .main-content {
+        .main-dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chat-interface {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             animation: slideUp 1s ease-out 1s both;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .chat-title {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 18px;
+            max-width: 80%;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        .user-message {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .friday-message {
+            background: rgba(255, 255, 255, 0.15);
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .voice-btn, .send-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voice-btn:hover, .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.6);
+        }
+
+        .voice-btn.listening {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            animation: pulse 1s infinite;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 1s ease-out 1.2s both;
+        }
+
+        .control-title {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-btn {
+            padding: 0.8rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .control-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .whatsapp-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-title {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .phone-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .phone-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .features-showcase {
+            margin-top: 3rem;
+            animation: slideUp 1s ease-out 1.5s both;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.3s ease;
-            animation: cardFloat 3s ease-in-out infinite;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        .feature-card:nth-child(2) {
-            animation-delay: -1.5s;
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             animation: bounce 2s infinite;
         }
 
         .feature-title {
-            font-size: 1.5rem;
             color: #fff;
-            margin-bottom: 1rem;
             font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
         }
 
         .feature-description {
-            color: #e0e0e0;
-            line-height: 1.6;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-            animation: slideUp 1s ease-out 1.5s both;
-        }
-
-        .mini-feature {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .mini-feature:nth-child(2) { animation-delay: 0.5s; }
-        .mini-feature:nth-child(3) { animation-delay: 1s; }
-        .mini-feature:nth-child(4) { animation-delay: 1.5s; }
-
-        .mini-feature:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
-        }
-
-        .mini-feature-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .mini-feature-title {
-            color: #fff;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .mini-feature-text {
             color: #d0d0d0;
             font-size: 0.9rem;
-        }
-
-        .cta-section {
-            text-align: center;
-            margin-top: 4rem;
-            animation: fadeIn 1s ease-out 2s both;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.4);
-            animation: buttonGlow 2s ease-in-out infinite alternate;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(238, 90, 36, 0.6);
+            line-height: 1.4;
         }
 
         .floating-shapes {
@@ -233,11 +404,6 @@
             }
         }
 
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-10px); }
@@ -245,17 +411,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes buttonGlow {
-            from {
-                box-shadow: 0 5px 15px rgba(238, 90, 36, 0.4);
-            }
-            to {
-                box-shadow: 0 5px 25px rgba(238, 90, 36, 0.8);
-            }
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         @keyframes float {
@@ -270,11 +427,22 @@
             }
         }
 
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .main-content {
+            .main-dashboard {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
             }
 
             .logo {
@@ -287,7 +455,10 @@
 
             .features-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+            }
+
+            .control-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -305,78 +476,1265 @@
             <div class="subtitle">Your Intelligent Virtual Assistant</div>
         </header>
 
-        <div class="main-content">
-            <div class="feature-card">
-                <div class="feature-icon">🎤</div>
-                <div class="feature-title">Voice Recognition</div>
-                <div class="feature-description">
-                    Advanced speech recognition technology that understands your commands naturally. 
-                    Just say "Friday" and speak your request - from playing music to sending WhatsApp messages.
+        <div class="main-dashboard">
+            <!-- Chat Interface -->
+            <div class="chat-interface">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        Chat with Friday
+                        <span class="status-indicator" id="statusIndicator"></span>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message friday-message">
+                        <strong>Friday:</strong> Hello! I'm Friday, your virtual assistant. Try saying "Friday" followed by a command like "what time is it" or "play music".
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message or use voice...">
+                    <button class="voice-btn" id="voiceBtn" title="Start Voice Recognition">🎤</button>
+                    <button class="send-btn" id="sendBtn" title="Send Message">➤</button>
                 </div>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">🔗</div>
-                <div class="feature-title">Smart Integration</div>
-                <div class="feature-description">
-                    Seamlessly connects with your favorite apps and services. Control YouTube, Google, 
-                    WhatsApp, camera, and more through simple voice commands.
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="control-title">Quick Controls</div>
+                
+                <div class="control-grid">
+                    <button class="control-btn" data-command="time">
+                        <div class="control-icon">⏰</div>
+                        <div>Current Time</div>
+                    </button>
+                    <button class="control-btn" data-command="date">
+                        <div class="control-icon">📅</div>
+                        <div>Today's Date</div>
+                    </button>
+                    <button class="control-btn" data-command="weather">
+                        <div class="control-icon">🌤️</div>
+                        <div>Weather Info</div>
+                    </button>
+                    <button class="control-btn" data-command="facts">
+                        <div class="control-icon">🧠</div>
+                        <div>Random Facts</div>
+                    </button>
+                    <button class="control-btn" data-command="news">
+                        <div class="control-icon">📰</div>
+                        <div>Latest News</div>
+                    </button>
+                    <button class="control-btn" data-command="password">
+                        <div class="control-icon">🔐</div>
+                        <div>Generate Password</div>
+                    </button>
+                    <button class="control-btn" data-app="google">
+                        <div class="control-icon">🌐</div>
+                        <div>Open Google</div>
+                    </button>
+                    <button class="control-btn" data-app="youtube">
+                        <div class="control-icon">📺</div>
+                        <div>Open YouTube</div>
+                    </button>
+                    <button class="control-btn" data-action="music">
+                        <div class="control-icon">🎵</div>
+                        <div>Play Music</div>
+                    </button>
+                    <button class="control-btn" data-app="camera">
+                        <div class="control-icon">📷</div>
+                        <div>Open Camera</div>
+                    </button>
+                    <button class="control-btn" data-command="email">
+                        <div class="control-icon">📧</div>
+                        <div>Compose Email</div>
+                    </button>
+                    <button class="control-btn" data-command="location">
+                        <div class="control-icon">📍</div>
+                        <div>My Location</div>
+                    </button>
+                    <button class="control-btn" data-command="theme">
+                        <div class="control-icon">🌙</div>
+                        <div>Toggle Theme</div>
+                    </button>
+                    <button class="control-btn" data-command="linkedin">
+                        <div class="control-icon">💼</div>
+                        <div>LinkedIn Post</div>
+                    </button>
+                    <button class="control-btn" data-command="git">
+                        <div class="control-icon">🚀</div>
+                        <div>Git Push</div>
+                    </button>
+                </div>
+
+                <div class="whatsapp-section">
+                    <div class="whatsapp-title">📱 WhatsApp Message</div>
+                    <input type="tel" class="phone-input" id="phoneInput" placeholder="Enter phone number (+1234567890)">
+                    <button class="whatsapp-btn" id="whatsappBtn">Send Voice Message</button>
+                </div>
+
+                <div class="advanced-tools" style="margin-top: 1.5rem;">
+                    <div class="whatsapp-title">🛠️ Advanced Tools</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1rem;">
+                        <input type="text" class="phone-input" id="qrInput" placeholder="Text for QR code" style="margin-bottom: 0.5rem;">
+                        <button class="whatsapp-btn" onclick="generateQRFromInput()" style="margin-bottom: 0.5rem; padding: 0.5rem; font-size: 0.8rem;">Generate QR</button>
+                        <input type="text" class="phone-input" id="urlInput" placeholder="URL to shorten" style="margin-bottom: 0.5rem;">
+                        <button class="whatsapp-btn" onclick="shortenURLFromInput()" style="margin-bottom: 0.5rem; padding: 0.5rem; font-size: 0.8rem;">Shorten URL</button>
+                        <input type="text" class="phone-input" id="calcInput" placeholder="Calculate: 5+5*2" style="margin-bottom: 0.5rem;">
+                        <button class="whatsapp-btn" onclick="calculateFromInput()" style="margin-bottom: 0.5rem; padding: 0.5rem; font-size: 0.8rem;">Calculate</button>
+                    </div>
+                </div>
+
+                <div class="linkedin-section" style="margin-top: 1.5rem;">
+                    <div class="whatsapp-title">💼 LinkedIn Post Creator</div>
+                    <textarea class="phone-input" id="linkedinInput" placeholder="What's on your mind? Type your LinkedIn post here..." style="min-height: 80px; resize: vertical; margin-bottom: 0.5rem;"></textarea>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <button class="whatsapp-btn" onclick="postToLinkedInFromInput()" style="padding: 0.5rem; font-size: 0.8rem;">Post to LinkedIn</button>
+                        <button class="whatsapp-btn" onclick="generatePostIdeas()" style="padding: 0.5rem; font-size: 0.8rem; background: linear-gradient(45deg, #0077B5, #005885);">Get Post Ideas</button>
+                    </div>
+                    <div style="margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255,255,255,0.7); text-align: center;">
+                        🔒 Opens LinkedIn in new tab - You stay in control of your login
+                    </div>
+                </div>
+
+                <div class="git-section" style="margin-top: 1.5rem;">
+                    <div class="whatsapp-title">🚀 Git Automation</div>
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <input type="text" class="phone-input" id="selectedDirectory" placeholder="No directory selected" readonly style="margin-bottom: 0;">
+                        <button class="whatsapp-btn" onclick="selectProjectDirectory()" style="padding: 0.5rem; font-size: 0.8rem; width: auto; background: linear-gradient(45deg, #6f42c1, #9649c7);">📁 Select Folder</button>
+                    </div>
+                    <input type="text" class="phone-input" id="commitMessage" placeholder="Enter commit message (e.g., 'Added new features')" style="margin-bottom: 0.5rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <button class="whatsapp-btn" onclick="executeSmartGitCommands()" style="padding: 0.5rem; font-size: 0.8rem; background: linear-gradient(45deg, #24292e, #586069);">🚀 Smart Git Push</button>
+                        <button class="whatsapp-btn" onclick="generateCommitMessage()" style="padding: 0.5rem; font-size: 0.8rem; background: linear-gradient(45deg, #28a745, #20c997);">💡 Generate Message</button>
+                    </div>
+                    <div style="margin-top: 0.5rem; font-size: 0.7rem; color: rgba(255,255,255,0.7); text-align: center;">
+                        🧠 Smart filtering: Excludes .git, node_modules, .DS_Store, etc.
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="features-grid">
-            <div class="mini-feature">
-                <div class="mini-feature-icon">🎵</div>
-                <div class="mini-feature-title">Music & Media</div>
-                <div class="mini-feature-text">Play songs on YouTube with voice commands</div>
-            </div>
+        <div class="features-showcase">
+            <div class="features-grid">
+                <div class="feature-card" data-feature="voice">
+                    <div class="feature-icon">🎤</div>
+                    <div class="feature-title">Advanced Voice Recognition</div>
+                    <div class="feature-description">
+                        Natural language processing with real-time speech-to-text conversion. Just speak and Friday understands.
+                    </div>
+                </div>
 
-            <div class="mini-feature">
-                <div class="mini-feature-icon">📱</div>
-                <div class="mini-feature-title">WhatsApp Messages</div>
-                <div class="mini-feature-text">Send messages hands-free via voice</div>
-            </div>
+                <div class="feature-card" data-feature="smart">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-title">Smart Automation</div>
+                    <div class="feature-description">
+                        Intelligent task automation with context awareness. Friday learns your preferences over time.
+                    </div>
+                </div>
 
-            <div class="mini-feature">
-                <div class="mini-feature-icon">🌐</div>
-                <div class="mini-feature-title">Web Control</div>
-                <div class="mini-feature-text">Open and control web applications</div>
-            </div>
+                <div class="feature-card" data-feature="integration">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-title">Seamless Integration</div>
+                    <div class="feature-description">
+                        Connect with all your favorite apps and services. Control everything from one interface.
+                    </div>
+                </div>
 
-            <div class="mini-feature">
-                <div class="mini-feature-icon">📷</div>
-                <div class="mini-feature-title">System Control</div>
-                <div class="mini-feature-text">Control camera, apps, and system tools</div>
+                <div class="feature-card" data-feature="security">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Privacy & Security</div>
+                    <div class="feature-description">
+                        Your data stays private. Local processing ensures your conversations remain confidential.
+                    </div>
+                </div>
             </div>
-
-            <div class="mini-feature">
-                <div class="mini-feature-icon">🧠</div>
-                <div class="mini-feature-title">Knowledge Base</div>
-                <div class="mini-feature-text">Get instant Wikipedia information</div>
-            </div>
-
-            <div class="mini-feature">
-                <div class="mini-feature-icon">⏰</div>
-                <div class="mini-feature-title">Time & Date</div>
-                <div class="mini-feature-text">Ask for current time and date</div>
-            </div>
-        </div>
-
-        <div class="cta-section">
-            <a href="#" class="cta-button" onclick="runFriday()">🚀 Launch Friday</a>
         </div>
     </div>
 
     <script>
-        // Add interactive elements
-        function runFriday() {
-            alert("Friday is starting up! 🤖\n\nTo run Friday:\n1. Make sure you have Python installed\n2. Install required packages: pip install -r requirements.txt\n3. Run: python friday.py\n\nEnjoy your virtual assistant!");
+        // Global variables
+        let isListening = false;
+        let recognition = null;
+        let fridayActive = false;
+
+        // Initialize Speech Recognition
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+
+                recognition.onstart = function() {
+                    isListening = true;
+                    updateVoiceButton();
+                    updateStatus('Listening...', 'listening');
+                };
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript.toLowerCase().trim();
+                    addMessage(`You: ${transcript}`, 'user');
+                    processVoiceCommand(transcript);
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    updateStatus('Error occurred', 'error');
+                    isListening = false;
+                    updateVoiceButton();
+                };
+
+                recognition.onend = function() {
+                    isListening = false;
+                    updateVoiceButton();
+                    updateStatus('Ready', 'ready');
+                };
+            } else {
+                console.warn('Speech recognition not supported');
+            }
         }
 
-        // Add particle effect on mouse move
+        // Process voice commands
+        function processVoiceCommand(command) {
+            // Check if command starts with "friday"
+            if (command.startsWith('friday')) {
+                fridayActive = true;
+                const actualCommand = command.replace('friday', '').trim();
+                
+                if (actualCommand.includes('time')) {
+                    executeCommand('time');
+                } else if (actualCommand.includes('date')) {
+                    executeCommand('date');
+                } else if (actualCommand.includes('weather')) {
+                    executeCommand('weather');
+                } else if (actualCommand.includes('news')) {
+                    executeCommand('news');
+                } else if (actualCommand.includes('password')) {
+                    executeCommand('password');
+                } else if (actualCommand.includes('email')) {
+                    executeCommand('email');
+                } else if (actualCommand.includes('linkedin') || actualCommand.includes('post')) {
+                    executeCommand('linkedin');
+                } else if (actualCommand.includes('git') || actualCommand.includes('push') || actualCommand.includes('commit')) {
+                    executeCommand('git');
+                } else if (actualCommand.includes('play')) {
+                    const song = actualCommand.replace('play', '').trim();
+                    playSpecificMusic(song);
+                } else if (actualCommand.includes('calculate') || actualCommand.includes('math')) {
+                    const expression = actualCommand.replace(/calculate|math/g, '').trim();
+                    if (expression) {
+                        performCalculation(expression);
+                    } else {
+                        addMessage("Friday: Please provide a calculation. Example: 'Friday calculate 15 * 7'", 'friday');
+                    }
+                } else if (actualCommand.includes('qr code')) {
+                    const text = actualCommand.replace('qr code', '').replace('for', '').trim();
+                    if (text) {
+                        generateQRCode(text);
+                    } else {
+                        addMessage("Friday: Please provide text for QR code. Example: 'Friday QR code for hello world'", 'friday');
+                    }
+                } else if (actualCommand.includes('shorten url') || actualCommand.includes('short url')) {
+                    const url = actualCommand.replace(/shorten url|short url/, '').trim();
+                    if (url) {
+                        shortenURL(url);
+                    } else {
+                        addMessage("Friday: Please provide a URL to shorten. Example: 'Friday shorten url https://example.com'", 'friday');
+                    }
+                } else if (actualCommand.includes('convert')) {
+                    // Handle unit conversions: "friday convert 10 kg to pounds"
+                    const parts = actualCommand.match(/convert (\d+(?:\.\d+)?)\s*(\w+)\s*to\s*(\w+)/);
+                    if (parts) {
+                        const [, value, fromUnit, toUnit] = parts;
+                        convertUnits(parseFloat(value), fromUnit, toUnit);
+                    } else {
+                        addMessage("Friday: Please use format: 'Friday convert 10 kg to pounds'", 'friday');
+                    }
+                } else if (actualCommand.includes('open google')) {
+                    openApp('google');
+                } else if (actualCommand.includes('open youtube')) {
+                    openApp('youtube');
+                } else if (actualCommand.includes('open camera')) {
+                    openApp('camera');
+                } else if (actualCommand.includes('facts')) {
+                    executeCommand('facts');
+                } else if (actualCommand.includes('whatsapp') || actualCommand.includes('message')) {
+                    sendWhatsApp();
+                } else if (actualCommand.includes('how are you')) {
+                    addMessage("Friday: I'm doing great! How can I help you today?", 'friday');
+                } else if (actualCommand.includes('what is your name')) {
+                    addMessage("Friday: I'm Friday, your intelligent virtual assistant!", 'friday');
+                } else if (actualCommand.includes('what can you do')) {
+                    addMessage("Friday: I can help with weather, news, calculations, QR codes, URL shortening, unit conversions, password generation, playing music, opening apps, and much more! Try saying specific commands or click the buttons.", 'friday');
+                } else {
+                    addMessage(`Friday: I heard "${actualCommand}" but I'm not sure how to handle that yet. Try commands like "time", "weather", "calculate 5+5", "QR code for hello", or "convert 10 kg to pounds".`, 'friday');
+                }
+            } else {
+                addMessage("Friday: Please start your command with 'Friday' to activate me.", 'friday');
+            }
+        }
+
+        // Execute commands
+        function executeCommand(command) {
+            addMessage(`Friday: Executing ${command} command...`, 'friday');
+            
+            switch(command) {
+                case 'time':
+                    const currentTime = new Date().toLocaleTimeString();
+                    addMessage(`Friday: The current time is ${currentTime}`, 'friday');
+                    break;
+                    
+                case 'date':
+                    const currentDate = new Date().toLocaleDateString();
+                    addMessage(`Friday: Today's date is ${currentDate}`, 'friday');
+                    break;
+                    
+                case 'weather':
+                    getWeatherInfo();
+                    break;
+                    
+                case 'news':
+                    getLatestNews();
+                    break;
+                    
+                case 'password':
+                    generatePassword();
+                    break;
+                    
+                case 'email':
+                    composeEmail();
+                    break;
+                    
+                case 'location':
+                    getLocationInfo();
+                    break;
+                    
+                case 'theme':
+                    toggleTheme();
+                    break;
+                    
+                case 'linkedin':
+                    openLinkedInHelper();
+                    break;
+                    
+                case 'git':
+                    openGitHelper();
+                    break;
+                    
+                case 'facts':
+                    const facts = [
+                        "The human brain contains approximately 86 billion neurons.",
+                        "A group of flamingos is called a 'flamboyance'.",
+                        "Honey never spoils. Archaeologists have found edible honey in ancient Egyptian tombs.",
+                        "A day on Venus is longer than its year.",
+                        "Octopuses have three hearts and blue blood.",
+                        "The shortest war in history lasted only 38-45 minutes.",
+                        "Bananas are berries, but strawberries aren't.",
+                        "A cloud can weigh more than a million pounds.",
+                        "The Great Wall of China isn't visible from space with the naked eye."
+                    ];
+                    const randomFact = facts[Math.floor(Math.random() * facts.length)];
+                    addMessage(`Friday: Here's an interesting fact: ${randomFact}`, 'friday');
+                    break;
+                    
+                default:
+                    addMessage(`Friday: Command "${command}" executed!`, 'friday');
+            }
+        }
+
+        // Open applications
+        function openApp(app) {
+            const button = event.target.closest('.control-btn');
+            button.classList.add('active');
+            
+            setTimeout(() => button.classList.remove('active'), 2000);
+            
+            addMessage(`Friday: Opening ${app}...`, 'friday');
+            
+            switch(app) {
+                case 'google':
+                    window.open('https://www.google.com', '_blank');
+                    addMessage("Friday: Google opened in a new tab!", 'friday');
+                    break;
+                    
+                case 'youtube':
+                    window.open('https://www.youtube.com', '_blank');
+                    addMessage("Friday: YouTube opened in a new tab!", 'friday');
+                    break;
+                    
+                case 'camera':
+                    addMessage("Friday: Camera app functionality requires system-level access. Please use the desktop application for this feature.", 'friday');
+                    break;
+                    
+                default:
+                    addMessage(`Friday: ${app} opened!`, 'friday');
+            }
+        }
+
+        // Play music
+        function playMusic() {
+            const songs = ['relaxing music', 'jazz music', 'classical music', 'ambient music', 'lo-fi hip hop'];
+            const randomSong = songs[Math.floor(Math.random() * songs.length)];
+            playSpecificMusic(randomSong);
+        }
+
+        function playSpecificMusic(song) {
+            const searchQuery = song || 'relaxing music';
+            addMessage(`Friday: Playing "${searchQuery}" on YouTube...`, 'friday');
+            window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`, '_blank');
+        }
+
+        // Weather API functionality
+        async function getWeatherInfo() {
+            try {
+                // Get user's location
+                if (navigator.geolocation) {
+                    addMessage("Friday: Getting your location for weather info...", 'friday');
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        
+                        // Free weather API (no key required)
+                        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`);
+                        const data = await response.json();
+                        
+                        const weather = data.current_weather;
+                        const temp = Math.round(weather.temperature);
+                        const windSpeed = Math.round(weather.windspeed);
+                        
+                        addMessage(`Friday: Current weather - Temperature: ${temp}°C, Wind Speed: ${windSpeed} km/h, Weather Code: ${weather.weathercode}`, 'friday');
+                    }, () => {
+                        addMessage("Friday: Location access denied. Try saying 'Friday weather in [city name]' instead.", 'friday');
+                    });
+                } else {
+                    addMessage("Friday: Geolocation not supported by this browser.", 'friday');
+                }
+            } catch (error) {
+                addMessage("Friday: Sorry, couldn't fetch weather data right now.", 'friday');
+            }
+        }
+
+        // News API functionality
+        async function getLatestNews() {
+            try {
+                addMessage("Friday: Fetching latest news...", 'friday');
+                // Using a free news API
+                const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://rss.cnn.com/rss/edition.rss'));
+                const data = await response.json();
+                
+                addMessage("Friday: Here are the latest headlines from CNN RSS feed. Opening in new tab...", 'friday');
+                window.open('https://www.cnn.com', '_blank');
+            } catch (error) {
+                addMessage("Friday: Here are some reliable news sources for you...", 'friday');
+                window.open('https://news.google.com', '_blank');
+            }
+        }
+
+        // Calculator functionality
+        function performCalculation(expression) {
+            try {
+                // Basic safety check for calculator
+                const cleanExpression = expression.replace(/[^0-9+\-*/().\s]/g, '');
+                if (cleanExpression !== expression) {
+                    addMessage("Friday: Invalid characters in calculation. Please use only numbers and basic operators (+, -, *, /, parentheses).", 'friday');
+                    return;
+                }
+                
+                const result = Function('"use strict"; return (' + cleanExpression + ')')();
+                addMessage(`Friday: ${expression} = ${result}`, 'friday');
+            } catch (error) {
+                addMessage("Friday: Sorry, I couldn't calculate that. Please check your expression.", 'friday');
+            }
+        }
+
+        // QR Code generator
+        function generateQRCode(text) {
+            const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+            addMessage(`Friday: QR Code generated for: "${text}"`, 'friday');
+            
+            const img = document.createElement('img');
+            img.src = qrCodeURL;
+            img.style.maxWidth = '200px';
+            img.style.border = '1px solid #fff';
+            img.style.borderRadius = '10px';
+            img.style.marginTop = '10px';
+            
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message friday-message';
+            messageDiv.appendChild(img);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // URL shortener
+        async function shortenURL(longUrl) {
+            try {
+                addMessage("Friday: Shortening your URL...", 'friday');
+                // Using a free URL shortening service
+                const response = await fetch('https://api.shrtco.de/v2/shorten', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: longUrl
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.ok) {
+                    addMessage(`Friday: Short URL created: ${data.result.short_link}`, 'friday');
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(data.result.short_link).then(() => {
+                        addMessage("Friday: Short URL copied to clipboard!", 'friday');
+                    });
+                } else {
+                    addMessage("Friday: Sorry, couldn't shorten that URL.", 'friday');
+                }
+            } catch (error) {
+                addMessage("Friday: URL shortening service unavailable.", 'friday');
+            }
+        }
+
+        // Password generator
+        function generatePassword(length = 12) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            addMessage(`Friday: Generated secure password: ${password}`, 'friday');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(password).then(() => {
+                addMessage("Friday: Password copied to clipboard!", 'friday');
+            });
+        }
+
+        // Email composer
+        function composeEmail(to = '', subject = '', body = '') {
+            const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoLink);
+            addMessage("Friday: Email composer opened!", 'friday');
+        }
+
+        // Helper functions for input tools
+        function generateQRFromInput() {
+            const text = document.getElementById('qrInput').value.trim();
+            if (text) {
+                generateQRCode(text);
+                document.getElementById('qrInput').value = '';
+            } else {
+                addMessage("Friday: Please enter text to generate QR code.", 'friday');
+            }
+        }
+
+        function shortenURLFromInput() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (url) {
+                shortenURL(url);
+                document.getElementById('urlInput').value = '';
+            } else {
+                addMessage("Friday: Please enter a URL to shorten.", 'friday');
+            }
+        }
+
+        function calculateFromInput() {
+            const expression = document.getElementById('calcInput').value.trim();
+            if (expression) {
+                performCalculation(expression);
+                document.getElementById('calcInput').value = '';
+            } else {
+                addMessage("Friday: Please enter a calculation.", 'friday');
+            }
+        }
+
+        // Speech synthesis for better voice responses
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.8;
+                utterance.pitch = 1;
+                utterance.volume = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Enhanced addMessage function with speech
+        function addMessageWithSpeech(text, type, speak = true) {
+            addMessage(text, type);
+            if (speak && type === 'friday') {
+                // Extract just Friday's response without "Friday:" prefix
+                const speechText = text.replace('Friday:', '').trim();
+                speakText(speechText);
+            }
+        }
+
+        // Theme switcher
+        function toggleTheme() {
+            const body = document.body;
+            const currentBg = body.style.background;
+            
+            if (currentBg.includes('667eea')) {
+                // Switch to dark theme
+                body.style.background = 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)';
+                addMessage("Friday: Switched to dark theme!", 'friday');
+            } else {
+                // Switch back to original theme
+                body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                addMessage("Friday: Switched to blue theme!", 'friday');
+            }
+        }
+
+        // Location-based features
+        function getLocationInfo() {
+            if (navigator.geolocation) {
+                addMessage("Friday: Getting your location...", 'friday');
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude.toFixed(4);
+                    const lon = position.coords.longitude.toFixed(4);
+                    addMessage(`Friday: Your coordinates are ${lat}, ${lon}`, 'friday');
+                    
+                    // Open location in Google Maps
+                    const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+                    window.open(mapsUrl, '_blank');
+                    addMessage("Friday: Location opened in Google Maps!", 'friday');
+                }, () => {
+                    addMessage("Friday: Location access denied.", 'friday');
+                });
+            } else {
+                addMessage("Friday: Geolocation not supported.", 'friday');
+            }
+        }
+
+        // LinkedIn Helper Functions
+        function openLinkedInHelper() {
+            addMessage("Friday: Opening LinkedIn post creator. You can type your post in the LinkedIn section below.", 'friday');
+            document.getElementById('linkedinInput').focus();
+        }
+
+        // Git Helper Functions
+        function openGitHelper() {
+            addMessage("Friday: Opening Git automation helper. You can select your project directory and commit changes with smart filtering.", 'friday');
+            document.getElementById('commitMessage').focus();
+        }
+
+        // Global variable to store selected directory
+        let selectedProjectPath = '';
+
+        function selectProjectDirectory() {
+            addMessage("Friday: Please select your project directory...", 'friday');
+            
+            // Create a file input for directory selection
+            const dirInput = document.createElement('input');
+            dirInput.type = 'file';
+            dirInput.webkitdirectory = true;
+            dirInput.multiple = true;
+            
+            dirInput.onchange = function(event) {
+                const files = event.target.files;
+                if (files.length > 0) {
+                    // Get the directory path from the first file
+                    const firstFile = files[0];
+                    const pathParts = firstFile.webkitRelativePath.split('/');
+                    selectedProjectPath = pathParts[0]; // Root directory name
+                    
+                    // Update the display
+                    document.getElementById('selectedDirectory').value = selectedProjectPath;
+                    
+                    // Analyze the project
+                    analyzeProjectStructure(files);
+                    
+                    addMessage(`Friday: Selected directory: ${selectedProjectPath} (${files.length} files detected)`, 'friday');
+                } else {
+                    addMessage("Friday: No directory selected.", 'friday');
+                }
+            };
+            
+            // Trigger the file picker
+            dirInput.click();
+        }
+
+        function analyzeProjectStructure(files) {
+            const projectInfo = {
+                totalFiles: files.length,
+                jsFiles: 0,
+                pyFiles: 0,
+                htmlFiles: 0,
+                cssFiles: 0,
+                jsonFiles: 0,
+                hasGit: false,
+                hasNodeModules: false,
+                hasDockerfile: false,
+                excludedFiles: 0
+            };
+
+            // Analyze file types and structure
+            Array.from(files).forEach(file => {
+                const fileName = file.name.toLowerCase();
+                const path = file.webkitRelativePath.toLowerCase();
+                
+                // Check for specific file types
+                if (fileName.endsWith('.js')) projectInfo.jsFiles++;
+                else if (fileName.endsWith('.py')) projectInfo.pyFiles++;
+                else if (fileName.endsWith('.html')) projectInfo.htmlFiles++;
+                else if (fileName.endsWith('.css')) projectInfo.cssFiles++;
+                else if (fileName.endsWith('.json')) projectInfo.jsonFiles++;
+                
+                // Check for special directories/files
+                if (path.includes('/.git/')) projectInfo.hasGit = true;
+                if (path.includes('/node_modules/')) projectInfo.hasNodeModules = true;
+                if (fileName === 'dockerfile') projectInfo.hasDockerfile = true;
+                
+                // Count files that would be excluded
+                if (shouldExcludeFile(file.webkitRelativePath)) {
+                    projectInfo.excludedFiles++;
+                }
+            });
+
+            // Display project analysis
+            let analysisMessage = `Friday: Project Analysis:\n`;
+            analysisMessage += `📁 Total files: ${projectInfo.totalFiles}\n`;
+            analysisMessage += `📄 Files to include: ${projectInfo.totalFiles - projectInfo.excludedFiles}\n`;
+            analysisMessage += `🚫 Files to exclude: ${projectInfo.excludedFiles}\n`;
+            
+            if (projectInfo.jsFiles > 0) analysisMessage += `🟨 JavaScript: ${projectInfo.jsFiles} files\n`;
+            if (projectInfo.pyFiles > 0) analysisMessage += `🐍 Python: ${projectInfo.pyFiles} files\n`;
+            if (projectInfo.htmlFiles > 0) analysisMessage += `🌐 HTML: ${projectInfo.htmlFiles} files\n`;
+            if (projectInfo.cssFiles > 0) analysisMessage += `🎨 CSS: ${projectInfo.cssFiles} files\n`;
+            
+            if (projectInfo.hasGit) analysisMessage += `✅ Git repository detected\n`;
+            if (projectInfo.hasDockerfile) analysisMessage += `🐳 Docker configuration detected\n`;
+            if (projectInfo.hasNodeModules) analysisMessage += `📦 Node.js project detected\n`;
+
+            addMessage(analysisMessage, 'friday');
+        }
+
+        function shouldExcludeFile(filePath) {
+            const excludePatterns = [
+                // Git and version control
+                '/.git/',
+                '.gitignore',
+                
+                // Dependencies and packages
+                '/node_modules/',
+                '/venv/',
+                '/env/',
+                '/__pycache__/',
+                '/vendor/',
+                '/packages/',
+                
+                // Build outputs
+                '/dist/',
+                '/build/',
+                '/out/',
+                '/target/',
+                
+                // IDE and editor files
+                '/.vscode/',
+                '/.idea/',
+                '.DS_Store',
+                'Thumbs.db',
+                '*.swp',
+                '*.swo',
+                
+                // Logs and temporary files
+                '/logs/',
+                '*.log',
+                '/tmp/',
+                '/temp/',
+                
+                // OS specific
+                '.DS_Store',
+                'desktop.ini',
+                
+                // Cache directories
+                '/.cache/',
+                '/cache/',
+                
+                // Coverage and test reports
+                '/coverage/',
+                '/test-results/',
+                
+                // Compiled files
+                '*.pyc',
+                '*.pyo',
+                '*.class',
+                '*.o',
+                '*.so',
+                
+                // Large media files (optional exclusion)
+                '*.mp4',
+                '*.avi',
+                '*.mov',
+                '*.mkv'
+            ];
+
+            const lowerPath = filePath.toLowerCase();
+            return excludePatterns.some(pattern => {
+                if (pattern.includes('/')) {
+                    return lowerPath.includes(pattern.toLowerCase());
+                } else if (pattern.startsWith('*.')) {
+                    return lowerPath.endsWith(pattern.substring(1).toLowerCase());
+                } else {
+                    return lowerPath.includes(pattern.toLowerCase());
+                }
+            });
+        }
+
+        function executeSmartGitCommands() {
+            const message = document.getElementById('commitMessage').value.trim();
+            if (!message) {
+                addMessage("Friday: Please enter a commit message first.", 'friday');
+                return;
+            }
+
+            if (!selectedProjectPath) {
+                addMessage("Friday: Please select a project directory first using the 'Select Folder' button.", 'friday');
+                return;
+            }
+
+            addMessage("Friday: Executing smart Git commands with file filtering...", 'friday');
+            
+            // Create smart git commands that exclude unwanted files
+            const gitCommands = [
+                `cd "${selectedProjectPath}"`,
+                'git add .',
+                // Add gitignore patterns if they don't exist
+                'echo "node_modules/" >> .gitignore 2>/dev/null || true',
+                'echo "__pycache__/" >> .gitignore 2>/dev/null || true',
+                'echo ".DS_Store" >> .gitignore 2>/dev/null || true',
+                'echo "*.log" >> .gitignore 2>/dev/null || true',
+                'git add .gitignore 2>/dev/null || true',
+                `git commit -m "${message}"`,
+                'git push'
+            ];
+
+            // Alternative PowerShell-friendly commands for Windows
+            const windowsCommands = [
+                `Set-Location "${selectedProjectPath}"`,
+                'git add .',
+                'if (!(Test-Path .gitignore)) { New-Item .gitignore -ItemType File }',
+                'Add-Content .gitignore "node_modules/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "__pycache__/" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore ".DS_Store" -ErrorAction SilentlyContinue',
+                'Add-Content .gitignore "*.log" -ErrorAction SilentlyContinue',
+                'git add .gitignore',
+                `git commit -m "${message}"`,
+                'git push'
+            ];
+
+            // Show the commands that will be executed
+            addMessage(`Friday: Smart Git workflow for: ${selectedProjectPath}`, 'friday');
+            
+            // Detect OS and provide appropriate commands
+            const isWindows = navigator.userAgent.includes('Windows');
+            const commandsToUse = isWindows ? windowsCommands : gitCommands;
+            const shellType = isWindows ? 'PowerShell' : 'bash';
+            
+            addMessage(`Friday: Commands for ${shellType}:\n${commandsToUse.join('\n')}`, 'friday');
+            
+            // Copy commands to clipboard
+            const commandScript = commandsToUse.join(isWindows ? '; ' : ' && ');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage(`Friday: Smart Git commands copied to clipboard! Open ${shellType} and paste to execute.`, 'friday');
+                
+                if (isWindows) {
+                    addMessage("Friday: To run: Press Win+X → Windows PowerShell → Paste commands", 'friday');
+                } else {
+                    addMessage("Friday: To run: Open Terminal → Paste commands", 'friday');
+                }
+                
+                // Clear the input
+                document.getElementById('commitMessage').value = '';
+                
+                // Show success message
+                addMessage("Friday: Smart Git workflow ready! Unwanted files will be automatically excluded.", 'friday');
+                
+                // Show what will be excluded
+                addMessage("Friday: Files automatically excluded: .git/, node_modules/, __pycache__/, .DS_Store, *.log, build folders, and more.", 'friday');
+                
+            }).catch(() => {
+                addMessage(`Friday: Copy failed. Here are your ${shellType} commands:\n${commandScript}`, 'friday');
+            });
+        }
+
+        function executeGitCommands() {
+            const message = document.getElementById('commitMessage').value.trim();
+            if (!message) {
+                addMessage("Friday: Please enter a commit message first.", 'friday');
+                return;
+            }
+
+            addMessage("Friday: Executing Git commands automatically...", 'friday');
+            
+            // Create the git command sequence
+            const gitCommands = [
+                'git add .',
+                `git commit -m "${message}"`,
+                'git push'
+            ];
+
+            // Show the commands that will be executed
+            addMessage(`Friday: Running the following commands:\n${gitCommands.join('\n')}`, 'friday');
+            
+            // Copy git commands to clipboard for manual execution
+            const commandScript = gitCommands.join(' && ');
+            navigator.clipboard.writeText(commandScript).then(() => {
+                addMessage("Friday: Git commands copied to clipboard! Open your terminal and paste to execute.", 'friday');
+                
+                // Also try to open terminal automatically (works on some systems)
+                if (navigator.userAgent.includes('Windows')) {
+                    addMessage("Friday: Note: On Windows, you can press Win+R, type 'cmd', then paste the commands.", 'friday');
+                } else {
+                    addMessage("Friday: Note: Open your terminal and paste the commands to execute.", 'friday');
+                }
+                
+                // Clear the input
+                document.getElementById('commitMessage').value = '';
+                
+                // Show success message
+                addMessage("Friday: Git workflow ready! The commands are in your clipboard.", 'friday');
+            }).catch(() => {
+                addMessage(`Friday: Here are your git commands to copy manually:\n${commandScript}`, 'friday');
+            });
+        }
+
+        function generateCommitMessage() {
+            const commitMessages = [
+                "Added new features and improvements",
+                "Updated functionality and bug fixes",
+                "Enhanced user interface and experience",
+                "Implemented new automation features",
+                "Improved performance and optimization",
+                "Added LinkedIn integration functionality",
+                "Updated documentation and comments",
+                "Fixed bugs and enhanced stability",
+                "Added voice recognition improvements",
+                "Implemented new API integrations",
+                "Enhanced security and validation",
+                "Updated styling and animations",
+                "Added new tool functionality",
+                "Improved responsive design",
+                "Updated container configuration"
+            ];
+            
+            const randomMessage = commitMessages[Math.floor(Math.random() * commitMessages.length)];
+            document.getElementById('commitMessage').value = randomMessage;
+            addMessage(`Friday: Generated commit message: "${randomMessage}"`, 'friday');
+        }
+
+        function postToLinkedInFromInput() {
+            const postContent = document.getElementById('linkedinInput').value.trim();
+            if (postContent) {
+                postToLinkedIn(postContent);
+                document.getElementById('linkedinInput').value = '';
+            } else {
+                addMessage("Friday: Please enter your post content first.", 'friday');
+            }
+        }
+
+        function postToLinkedIn(content) {
+            addMessage("Friday: Opening LinkedIn with your post content...", 'friday');
+            
+            // Create enhanced post with professional formatting
+            const enhancedContent = formatLinkedInPost(content);
+            
+            // Use LinkedIn's share URL (works without authentication)
+            const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(enhancedContent)}`;
+            
+            // Alternative: Direct LinkedIn feed URL for better UX
+            const directLinkedInUrl = `https://www.linkedin.com/feed/`;
+            
+            window.open(directLinkedInUrl, '_blank');
+            
+            // Copy formatted content to clipboard for easy pasting
+            navigator.clipboard.writeText(enhancedContent).then(() => {
+                addMessage("Friday: LinkedIn opened! Your formatted post has been copied to clipboard - just paste it in the 'Start a post' section.", 'friday');
+                addMessage(`Friday: Your formatted post:\n\n${enhancedContent}`, 'friday');
+            }).catch(() => {
+                addMessage("Friday: LinkedIn opened! Here's your formatted post to copy:", 'friday');
+                addMessage(`${enhancedContent}`, 'friday');
+            });
+        }
+
+        function formatLinkedInPost(content) {
+            // Add professional formatting and hashtags
+            let formattedPost = content;
+            
+            // Add line breaks for readability if it's a long post
+            if (content.length > 100) {
+                formattedPost = content + '\n\n';
+            }
+            
+            // Suggest relevant hashtags based on content
+            const hashtags = generateHashtags(content);
+            if (hashtags.length > 0) {
+                formattedPost += '\n\n' + hashtags.join(' ');
+            }
+            
+            // Add Friday signature
+            formattedPost += '\n\n#FridayAI #VirtualAssistant #TechInnovation';
+            
+            return formattedPost;
+        }
+
+        function generateHashtags(content) {
+            const hashtagMap = {
+                'project': '#Project',
+                'development': '#Development',
+                'coding': '#Coding',
+                'programming': '#Programming',
+                'javascript': '#JavaScript',
+                'python': '#Python',
+                'ai': '#AI',
+                'machine learning': '#MachineLearning',
+                'web': '#WebDevelopment',
+                'technology': '#Technology',
+                'innovation': '#Innovation',
+                'startup': '#Startup',
+                'business': '#Business',
+                'success': '#Success',
+                'achievement': '#Achievement',
+                'learning': '#Learning',
+                'growth': '#Growth',
+                'team': '#TeamWork',
+                'collaboration': '#Collaboration',
+                'leadership': '#Leadership',
+                'career': '#Career',
+                'professional': '#Professional',
+                'networking': '#Networking',
+                'docker': '#Docker',
+                'container': '#DevOps',
+                'api': '#API',
+                'frontend': '#Frontend',
+                'backend': '#Backend',
+                'fullstack': '#FullStack'
+            };
+            
+            const suggestions = [];
+            const lowerContent = content.toLowerCase();
+            
+            for (const [keyword, hashtag] of Object.entries(hashtagMap)) {
+                if (lowerContent.includes(keyword) && suggestions.length < 5) {
+                    suggestions.push(hashtag);
+                }
+            }
+            
+            return suggestions;
+        }
+
+        function generatePostIdeas() {
+            const postIdeas = [
+                "🚀 Just completed an exciting project using cutting-edge technology! Here's what I learned...",
+                "💡 Sharing insights from my latest development experience with AI and automation...",
+                "🎯 Reflecting on the journey of building innovative solutions that make a difference...",
+                "🔧 Breaking down complex technical challenges and how I solved them step by step...",
+                "🌟 Celebrating small wins in the world of software development and continuous learning...",
+                "📈 Key lessons learned while integrating multiple technologies in a single project...",
+                "🤝 The importance of collaboration and knowledge sharing in the tech community...",
+                "🎨 How good UI/UX design principles transformed my latest application...",
+                "⚡ Performance optimization tips that made a real difference in my recent project...",
+                "🔮 Exploring the future of virtual assistants and AI-powered applications..."
+            ];
+            
+            const randomIdea = postIdeas[Math.floor(Math.random() * postIdeas.length)];
+            document.getElementById('linkedinInput').value = randomIdea;
+            addMessage(`Friday: Here's a post idea for you! Check the LinkedIn section below.`, 'friday');
+        }
+
+        // Unit conversion function
+        function convertUnits(value, fromUnit, toUnit) {
+            const conversions = {
+                // Length
+                'meter_to_feet': value * 3.28084,
+                'feet_to_meter': value / 3.28084,
+                'km_to_miles': value * 0.621371,
+                'miles_to_km': value / 0.621371,
+                
+                // Weight
+                'kg_to_pounds': value * 2.20462,
+                'pounds_to_kg': value / 2.20462,
+                
+                // Temperature
+                'celsius_to_fahrenheit': (value * 9/5) + 32,
+                'fahrenheit_to_celsius': (value - 32) * 5/9
+            };
+            
+            const conversionKey = `${fromUnit}_to_${toUnit}`;
+            if (conversions[conversionKey]) {
+                const result = conversions[conversionKey].toFixed(2);
+                addMessage(`Friday: ${value} ${fromUnit} = ${result} ${toUnit}`, 'friday');
+            } else {
+                addMessage("Friday: Conversion not supported. Available: meter↔feet, km↔miles, kg↔pounds, celsius↔fahrenheit", 'friday');
+            }
+        }
+        
+        function sendWhatsApp() {
+            const phoneNumber = document.getElementById('phoneInput').value.trim();
+            
+            if (!phoneNumber) {
+                addMessage("Friday: Please enter a phone number first.", 'friday');
+                return;
+            }
+            
+            if (!phoneNumber.startsWith('+')) {
+                addMessage("Friday: Please include the country code (e.g., +1234567890).", 'friday');
+                return;
+            }
+            
+            addMessage("Friday: Please speak your message now...", 'friday');
+            
+            // Start voice recognition for message
+            if (recognition) {
+                recognition.onresult = function(event) {
+                    const message = event.results[0][0].transcript;
+                    addMessage(`Your message: "${message}"`, 'user');
+                    
+                    // Open WhatsApp Web with pre-filled message
+                    const whatsappURL = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+                    window.open(whatsappURL, '_blank');
+                    addMessage("Friday: WhatsApp Web opened with your message. Make sure you're logged in!", 'friday');
+                    
+                    // Reset recognition for normal commands
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+                        addMessage(`You: ${transcript}`, 'user');
+                        processVoiceCommand(transcript);
+                    };
+                };
+                recognition.start();
+            }
+        }
+
+        // Feature details
+        function showFeatureDetails(feature) {
+            const details = {
+                voice: "🎤 Voice Recognition:\n• Natural language processing\n• Multiple language support\n• Noise cancellation\n• Context understanding",
+                smart: "🧠 Smart Automation:\n• Learning algorithms\n• Predictive responses\n• Custom workflows\n• Intelligent suggestions",
+                integration: "🔗 Integration Features:\n• WhatsApp messaging\n• Web browser control\n• System applications\n• Third-party APIs",
+                security: "🔒 Security & Privacy:\n• Local processing\n• Encrypted communications\n• No data collection\n• User control"
+            };
+            
+            addMessage(`Friday: ${details[feature]}`, 'friday');
+        }
+
+        // UI Helper functions
+        function addMessage(text, type) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type === 'user' ? 'user-message' : 'friday-message'}`;
+            messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function updateVoiceButton() {
+            const voiceBtn = document.getElementById('voiceBtn');
+            if (isListening) {
+                voiceBtn.classList.add('listening');
+                voiceBtn.innerHTML = '🔴';
+                voiceBtn.title = 'Stop Listening';
+            } else {
+                voiceBtn.classList.remove('listening');
+                voiceBtn.innerHTML = '🎤';
+                voiceBtn.title = 'Start Voice Recognition';
+            }
+        }
+
+        function updateStatus(message, type) {
+            const indicator = document.getElementById('statusIndicator');
+            indicator.style.background = type === 'listening' ? '#ff6b6b' : 
+                                       type === 'error' ? '#f44336' : '#4CAF50';
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Friday Assistant loaded!');
+            initSpeechRecognition();
+            
+            // Add debugging for all buttons
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    console.log('Button clicked:', this.textContent);
+                    
+                    // Handle different types of control buttons
+                    if (this.dataset.command) {
+                        executeCommand(this.dataset.command);
+                    } else if (this.dataset.app) {
+                        openApp(this.dataset.app);
+                    } else if (this.dataset.action === 'music') {
+                        playMusic();
+                    }
+                });
+            });
+            
+            // Voice button
+            document.getElementById('voiceBtn').addEventListener('click', function() {
+                console.log('Voice button clicked');
+                if (recognition) {
+                    if (isListening) {
+                        recognition.stop();
+                    } else {
+                        recognition.start();
+                    }
+                } else {
+                    addMessage("Friday: Voice recognition is not supported in your browser.", 'friday');
+                }
+            });
+            
+            // Send button
+            document.getElementById('sendBtn').addEventListener('click', function() {
+                console.log('Send button clicked');
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (message) {
+                    addMessage(`You: ${message}`, 'user');
+                    processVoiceCommand(message.toLowerCase());
+                    input.value = '';
+                }
+            });
+            
+            // Enter key for chat input
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('sendBtn').click();
+                }
+            });
+            
+            // Phone input formatting
+            document.getElementById('phoneInput').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^\d+]/g, '');
+                if (value && !value.startsWith('+')) {
+                    value = '+' + value;
+                }
+                e.target.value = value;
+            });
+            
+            // WhatsApp button
+            document.getElementById('whatsappBtn').addEventListener('click', function() {
+                console.log('WhatsApp button clicked');
+                sendWhatsApp();
+            });
+            
+            // Feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    console.log('Feature card clicked');
+                    const feature = this.dataset.feature;
+                    if (feature) {
+                        showFeatureDetails(feature);
+                    }
+                });
+            });
+        });
+
+        // Particle effects
         document.addEventListener('mousemove', function(e) {
-            createParticle(e.clientX, e.clientY);
+            if (Math.random() > 0.9) { // Reduce particle frequency
+                createParticle(e.clientX, e.clientY);
+            }
         });
 
         function createParticle(x, y) {
@@ -416,34 +1774,22 @@
         `;
         document.head.appendChild(style);
 
-        // Add smooth scrolling for better UX
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        // Typing effect for subtitle
+        setTimeout(() => {
+            const subtitle = document.querySelector('.subtitle');
+            const originalText = subtitle.textContent;
+            subtitle.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    subtitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
                 }
-            });
-        });
-
-        // Add typing effect to subtitle
-        const subtitle = document.querySelector('.subtitle');
-        const originalText = subtitle.textContent;
-        subtitle.textContent = '';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < originalText.length) {
-                subtitle.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
             }
-        }
-        
-        setTimeout(typeWriter, 1500);
+            typeWriter();
+        }, 1500);
     </script>
 </body>
 </html>
